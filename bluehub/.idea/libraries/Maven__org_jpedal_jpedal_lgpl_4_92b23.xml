@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jpedal:jpedal-lgpl:4.92b23">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jpedal/jpedal-lgpl/4.92b23/jpedal-lgpl-4.92b23.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jpedal/jpedal-lgpl/4.92b23/jpedal-lgpl-4.92b23-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jpedal/jpedal-lgpl/4.92b23/jpedal-lgpl-4.92b23-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Spring Quartz -->
+	<bean name="cronTriggerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.bluehub.quartz.EFaxSheduler" />
+	</bean>
+
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="cronTriggerJob" />
+<!-- 		<property name="cronExpression" value="0/3000 * * * * ?" /> -->
+				<!-- run every 30 minutes -->
+			<property name="cronExpression" value="0 0/30 * * * ?" />
+		
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="cronTriggerJob" />
+			</list>
+		</property>
+
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,33 @@
+ .del_row {
+    background: url("../images/DeleteRow.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    margin: 6px 0 2px !important;
+    width: 18px;
+}
+
+
+.editIcon {
+    background: url("../images/editIcon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    margin: 6px 0 2px !important;
+    width: 18px;
+}
+
+.viewIcon{
+	background: url("../images/view.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    margin: 6px 0 2px !important;
+    width: 18px;
+}
+
+.addIcon{
+   
+	background: url("../images/add.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    margin: 6px 0 2px !important;
+    width: 18px;
+}

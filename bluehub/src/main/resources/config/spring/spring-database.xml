@@ -1,0 +1,108 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location">
+			<value>classpath:database.properties</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${datasource.driverClass}" />
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+	</bean>
+
+	<bean id="userDAO" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.bluehub.dao.secure.UserDAOImpl">
+				<property name="sessionFactory">
+					<ref bean="sessionFactory" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${datasource.hibernate.dialect}</prop>
+				<prop key="hibernate.format_sql">${datasource.hibernate.format_sql}</prop>
+				<prop key="hibernate.auto_close_session">${datasource.hibernate.auto_close_session}</prop>
+				<prop key="hibernate.c3p0.acquire_increment">${datasource.hibernate.c3p0.acquire_increment}</prop>
+				<prop key="hibernate.c3p0.min_size">${datasource.hibernate.c3p0.min_size}</prop>
+				<prop key="hibernate.c3p0.max_size">${datasource.hibernate.c3p0.max_size}</prop>
+				<prop key="hibernate.c3p0.max_statements">${datasource.hibernate.c3p0.max_statements}</prop>
+				<prop key="hibernate.c3p0.timeout">${datasource.hibernate.c3p0.timeout}</prop>
+				<prop key="hibernate.c3p0.idle_test_period">${datasource.hibernate.c3p0.idle_test_period}</prop>
+				<prop key="hibernate.show_sql">${datasource.hibernate.show_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${datasource.hibernate.use_sql_comments}</prop>
+			    <prop key="hibernate.connection.autocommit">true</prop>
+			    
+<!-- 			    <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				
+				
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.bluehub.vo.user.RoleVO</value>
+				<value>com.bluehub.vo.user.UserRoleVO</value>
+				<value>com.bluehub.vo.user.UserVO</value>
+				<value>com.bluehub.vo.physician.VisitsVO</value>
+				<value>com.bluehub.vo.physician.UserPersonalInfoVO</value>
+				<value>com.bluehub.vo.user.PatientRequestVO</value>
+				<value>com.bluehub.vo.admin.AdminOrganizationVO</value>
+				<value>com.bluehub.vo.admin.AdminPracticeVO</value>
+				<value>com.bluehub.vo.admin.PhysicianMappingVO</value>
+				<value>com.bluehub.vo.admin.PatientMappingVO</value>
+				<value>com.bluehub.vo.common.PatientDocument</value>
+				<value>com.bluehub.vo.common.AuditTrailVO</value>
+				<value>com.bluehub.vo.common.PatientPrivateNoteVO</value>
+				<value>com.bluehub.vo.common.EncounterVO</value>
+				<value>com.bluehub.vo.common.ShareClinicalInfo</value>
+				<value>com.bluehub.vo.admin.PracticeAdminRoleVO</value>
+				<value>com.bluehub.vo.user.UserMappingVO</value>
+				<value>com.bluehub.vo.user.PracticeUserRoleVO</value>
+				<value>com.bluehub.vo.common.RequestInfoOfPatientVO</value>
+				<value>com.bluehub.vo.admin.FaxVo</value>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="txProxyTemplate" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributeSource">
+			<bean
+				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+		</property>
+		
+		<property name="transactionAttributes">
+    <props>
+      <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+      <prop key="*">PROPAGATION_REQUIRED</prop>
+    </props>
+</property>
+		
+	</bean>
+
+</beans>

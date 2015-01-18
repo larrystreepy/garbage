@@ -1,0 +1,10 @@
+ALTER TABLE bluehub_user ADD COLUMN organizationid integer;
+ALTER TABLE bluehub_user ADD COLUMN practiceid integer;
+
+
+ALTER TABLE bluehub_user ADD COLUMN created_by integer;
+ALTER TABLE bluehub_user ADD COLUMN modified_by integer;
+
+ALTER TABLE bluehub_user ADD COLUMN date_modified date;
+
+ALTER TABLE bluehub_user ADD COLUMN status integer;

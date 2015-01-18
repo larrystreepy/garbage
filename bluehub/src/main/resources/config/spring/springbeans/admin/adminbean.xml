@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+		<bean id="adminOrganizationManager" parent="txProxyTemplate">
+		<property name="target">
+		      <bean class="com.bluehub.manager.admin.AdminOrganizationManager">
+				<property name="adminOrganizationDao">
+		            <ref bean="adminOrganizationDao"/>
+		        </property>		
+		              
+			 </bean>
+		 </property>
+	</bean>
+
+	<bean id="adminOrganizationDao" class="com.bluehub.dao.admin.AdminOrganizationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+<bean id="adminPracticeManager" parent="txProxyTemplate">
+		<property name="target">
+		      <bean class="com.bluehub.manager.admin.AdminPracticeManager">
+				<property name="adminPracticeDao">
+		            <ref bean="adminPracticeDao"/>
+		        </property>		
+		              
+			 </bean>
+		 </property>
+	</bean>
+
+	<bean id="adminPracticeDao" class="com.bluehub.dao.admin.AdminPracticeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<bean id="practiceAdminManager" parent="txProxyTemplate">
+		<property name="target">
+		      <bean class="com.bluehub.manager.practiceadmin.PracticeAdminManager">
+				<property name="practiceAdminDao">
+		            <ref bean="practiceAdminDao"/>
+		        </property>		
+		              
+			 </bean>
+		 </property>
+	</bean>
+
+	<bean id="practiceAdminDao" class="com.bluehub.dao.practiceadmin.PracticeAdminDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>
