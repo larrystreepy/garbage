@@ -60,14 +60,12 @@ import com.google.gson.Gson;
 @Controller
 public class PhysicianMainController {
 
-	public static Logger logger = Logger
-			.getLogger(PhysicianMainController.class);
+	private static final Logger logger = Logger.getLogger(PhysicianMainController.class);
 
 	@Autowired
 	private AdminOrganizationManager adminOrganizationManager;
 
-	public void setAdminOrganizationManager(
-			AdminOrganizationManager adminOrganizationManager) {
+	public void setAdminOrganizationManager(AdminOrganizationManager adminOrganizationManager) {
 		this.adminOrganizationManager = adminOrganizationManager;
 	}
 
@@ -1684,10 +1682,8 @@ public class PhysicianMainController {
 		File destinationFile = null;
 		String returnPath = null;
 		String result = null;
-		String sourcePath = Constants
-				.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		String destinationPath = Constants
-				.getPropertyValue(Constants.FAREFILE_UPLOAD_PATH);
+		String sourcePath = Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH);
+		String destinationPath = Constants.getPlatformProperyValue(Constants.FAREFILE_UPLOAD_PATH);
 
 		try {
 

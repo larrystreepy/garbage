@@ -208,6 +208,12 @@ public interface PhysicianDao {
 
 	public Integer findPatientOrganizationId(Integer userId);
 
+    /**
+     * Get the extended user data needed to fill out the fax release form.
+     *
+     * @param userId Id of user
+     * @return name, DOB (as a Date), address
+     */
 	public Object[] getPatientPersonalDetailsForEfax(Integer userId);
 
 	public Integer saveEFaxDetails(FaxVo faxVo);

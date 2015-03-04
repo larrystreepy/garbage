@@ -1,20 +1,10 @@
 package com.bluehub.manager.physician;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.bluehub.bean.admin.SearchPatientForm;
 import com.bluehub.bean.common.UserDetails;
 import com.bluehub.dao.physician.PhysicianDao;
 import com.bluehub.dao.user.UserRegistrationDao;
+import com.bluehub.util.CommonUtils;
 import com.bluehub.util.Constants;
 import com.bluehub.util.EmailValidator;
 import com.bluehub.util.SendEmailWithAttachment;
@@ -25,7 +15,16 @@ import com.bluehub.vo.common.RequestInfoOfPatientVO;
 import com.bluehub.vo.common.ShareClinicalInfo;
 import com.bluehub.vo.physician.UserPersonalInfoVO;
 import com.bluehub.vo.physician.VisitsVO;
-import com.bluehub.vo.user.PatientRequestVO;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // @Transactional(propagation = Propagation.REQUIRED)
 public class PhysicianManager {
@@ -36,11 +35,9 @@ public class PhysicianManager {
 
 	/**
 	 * sets the {@link UserRegistrationDao} as userRegistrationDao
-	 * 
-	 * @param userRegistrationDao
 	 */
 	public void setPhysicianDao(PhysicianDao physicianDao) {
-		this.physicianDao = physicianDao;
+		PhysicianManager.physicianDao = physicianDao;
 	}
 
 	public int getSsnExist(String ssn) {
@@ -54,51 +51,23 @@ public class PhysicianManager {
 	/**
 	 * Handles file upload
 	 * 
-	 * @param fileUpload
-	 * @param email
 	 * @return String
 	 */
-	public String handleFileUpload(MultipartFile fileUpload, String email) {
+	public String handleFileUpload(MultipartFile fileUpload, String emailId) {
 		logger.info("UserManager: handleFileUpload() ===> starts.");
-		String saveDirectory = null;
 		String fileName = null;
-		String syntax = null;
-		saveDirectory = Constants.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		syntax = Constants.getPropertyValue(Constants.FILE_UPLOAD_SYNTAX);
+        final String originalFilename = fileUpload.getOriginalFilename();
+        if (logger.isDebugEnabled()) logger.debug("fileName : " + originalFilename + "===" + fileUpload.getContentType());
 
-		// create upload directory
-		File saveDir = new File(saveDirectory);
-		if (!saveDir.exists()) {
-			logger.info("creating directory: " + saveDirectory);
-			boolean result = saveDir.mkdir();
-			if (result) {
-				logger.info("DIR created");
-			}
-		}
-
-		// modify file's save location based on the user's email
-		saveDirectory = saveDirectory + email + syntax;
-		File theDir = new File(saveDirectory);
-		// if the directory does not exist, create it
-		if (!theDir.exists()) {
-			logger.info("creating directory: " + email);
-			boolean result = theDir.mkdir();
-			if (result) {
-				logger.info("DIR created");
-			}
-		}
-		if (!fileUpload.getOriginalFilename().equals("")) {
+        if (!originalFilename.equals("")) {
 			try {
-				fileName = fileUpload.getOriginalFilename();
-				// save the document
-				fileUpload.transferTo(new File(saveDirectory
-						+ fileUpload.getOriginalFilename()));
-			} catch (IllegalStateException e) {
-				logger.error(Constants.LOG_ERROR + e.getMessage());
-			} catch (IOException e) {
-				logger.error(Constants.LOG_ERROR + e.getMessage());
+                File saveDir = CommonUtils.createFileUploadSubDir(emailId);
+				fileName = originalFilename;
+                fileUpload.transferTo(new File(saveDir, originalFilename)); // save the document
+			} catch (IllegalStateException | IOException e) {
+				logger.error(Constants.LOG_ERROR + e.getMessage(), e);
 			}
-		}
+        }
 		logger.info("UserManager: handleFileUpload() ===> ends.");
 		return fileName;
 	}

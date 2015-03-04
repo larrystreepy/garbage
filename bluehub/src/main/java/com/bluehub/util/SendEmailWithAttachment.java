@@ -73,8 +73,7 @@ public class SendEmailWithAttachment {
 
 			MimeBodyPart messageBodyPart2 = new MimeBodyPart();
 
-			String saveDirectory = Constants
-					.getPropertyValue(Constants.FILE_UPLOAD_PATH);
+			String saveDirectory = Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH);
 			saveDirectory = saveDirectory + cerftificateFileName;
 			//logger.info("sendCertificate saveDirectory==>"+saveDirectory);
 			DataSource source = new FileDataSource(saveDirectory);
@@ -139,8 +138,7 @@ public class SendEmailWithAttachment {
 			messageBodyPart1.setContent(bodyContent, "text/html");
 			
 
-			String saveDirectory = Constants
-					.getPropertyValue(Constants.FAREFILE_UPLOAD_PATH);
+			String saveDirectory = Constants.getPlatformProperyValue(Constants.FAREFILE_UPLOAD_PATH);
 			String pathFolder = folderName.toString();
 			saveDirectory = saveDirectory + pathFolder;
 			//logger.info("sendCertificate saveDirectory==>"+saveDirectory);

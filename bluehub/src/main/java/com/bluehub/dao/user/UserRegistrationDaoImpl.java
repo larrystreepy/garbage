@@ -380,10 +380,8 @@ public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteDocumentDetailsVOByEmailAndDocId(String emailId,
-			Integer docId) {
-		Session session = getHibernateTemplate().getSessionFactory()
-				.openSession();
+	public void deleteDocumentDetailsVOByEmailAndDocId(String emailId, Integer docId) {
+		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		try {
 			String query = "delete DocumentDetailsVO doc where (doc.userEmail = :email) and (doc.docId = :docId)";
 			Query q = session.createQuery(query).setParameter("email", emailId)

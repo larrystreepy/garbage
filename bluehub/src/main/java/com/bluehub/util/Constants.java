@@ -245,12 +245,9 @@ public class Constants {
 	public static final String FAREFILE_UPLOAD_PATH = "farefileUpload.location";
 	public static final String DOWNLOAD_REQ_PATH = "download.req.form.location";
 	public static final String DOWNLOAD_TOOL_PATH = "download.tool.form.location";
-	public static final String FILE_UPLOAD_SYNTAX = "fileUpload.os.based.syntax";
-	
+
 	public static final String FAX_DOWNLOAD_PATH = "faxdownload.location";
 	public static final String FAX_TRASH_PATH = "faxtrash.location";
-	
-	
 	public static final String FAX_TEMPLATE_PATH = "faxtemplate.location";
 
 	public static final String ADMINISTRATOR = "Admin";
@@ -395,6 +392,11 @@ public class Constants {
 		return msgValue;
 	}
 
+    public static String getPlatformProperyValue(String key)
+    {
+        return SystemProperties.getProperty(key +"." + OSUtils.getPlatform());
+    }
+
 	public static String getMailPropertyValue(String msgKey) {
 		String msgValue = MailProperties.getProperty(msgKey);
 		return msgValue;
@@ -453,6 +455,7 @@ public class Constants {
 	}
 
 	public static List<String> video_types = new ArrayList<String>();
+
 	static {
 		video_types.add("application/annodex");
 		video_types.add("application/mp4");
@@ -504,7 +507,8 @@ public class Constants {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		//String password = getPropertyValue("serviceError");
+        System.out.println("platform = " + OSUtils.getPlatform());
+        //String password = getPropertyValue("serviceError");
 	}
 
 	public static final String PENDING = "Pending";

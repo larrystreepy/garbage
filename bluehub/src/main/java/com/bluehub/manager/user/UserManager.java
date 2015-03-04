@@ -1,22 +1,11 @@
 package com.bluehub.manager.user;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.bluehub.bean.admin.SearchPhysicianForm;
 import com.bluehub.bean.common.UserDetails;
 import com.bluehub.dao.user.UserRegistrationDao;
 import com.bluehub.exception.BlueHubBusinessException;
 import com.bluehub.exception.BlueHubRuntimeException;
+import com.bluehub.util.CommonUtils;
 import com.bluehub.util.Constants;
 import com.bluehub.util.EmailValidator;
 import com.bluehub.util.MailSupport;
@@ -24,12 +13,17 @@ import com.bluehub.vo.admin.PatientMappingVO;
 import com.bluehub.vo.admin.PhysicianMappingVO;
 import com.bluehub.vo.common.AuditTrailVO;
 import com.bluehub.vo.common.PatientDocument;
-import com.bluehub.vo.user.DocumentVO;
-import com.bluehub.vo.user.PatientRequestVO;
-import com.bluehub.vo.user.RoleVO;
-import com.bluehub.vo.user.UserGroupVO;
-import com.bluehub.vo.user.UserRoleVO;
-import com.bluehub.vo.user.UserVO;
+import com.bluehub.vo.user.*;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 // @Transactional(propagation = Propagation.REQUIRED)
 public class UserManager {
@@ -78,9 +72,7 @@ public class UserManager {
 	 */
 	public UserVO getUserRegistrationByUserId(Integer userId) {
 		logger.info("userManager getUserRegistrationByUserId() starts");
-		UserVO registrationFormVO = userRegistrationDao
-				.getUserRegistrationByUserId(userId);
-		return registrationFormVO;
+        return userRegistrationDao.getUserRegistrationByUserId(userId);
 	}
 
 	/**
@@ -108,13 +100,11 @@ public class UserManager {
 
 	/**
 	 * gets the roleId
-	 * 
-	 * @param roleName
+     *
 	 * @return roleId
 	 */
 	public String getRoleById(String roleName) throws BlueHubBusinessException {
-		String roleId = null;
-		roleId = userRegistrationDao.getRoleById(roleName);
+		String roleId = userRegistrationDao.getRoleById(roleName);
 		if (roleId == null) {
 			throw new BlueHubBusinessException("ROLE_NOT", null);
 		}
@@ -163,8 +153,7 @@ public class UserManager {
 	/**
 	 * get the given email id is exists or not.
 	 * 
-	 * @param userEmail
-	 *            as string
+	 * @param userEmail as string
 	 * @return integer value.
 	 */
 	public int getEmailExist(String userEmail) {
@@ -173,111 +162,50 @@ public class UserManager {
 
 	/**
 	 * Handles file upload
-	 * 
-	 * @param fileUpload
-	 * @param email
 	 * @return String
 	 */
-	public String handleFileUpload(MultipartFile fileUpload, String email) {
+	public String handleFileUpload(MultipartFile fileUpload, String emailId) {
 		logger.info("UserManager: handleFileUpload() ===> starts.");
-		String saveDirectory = null;
 		String fileName = null;
-		String syntax = null;
-		saveDirectory = Constants.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		syntax = Constants.getPropertyValue(Constants.FILE_UPLOAD_SYNTAX);
-		System.out
-				.println("fileName : " + fileUpload.getOriginalFilename()
-						+ "===" + fileUpload.getContentType() + " : syntax : "
-						+ syntax);
-		// create upload directory
-		File saveDir = new File(saveDirectory);
-		if (!saveDir.exists()) {
-			logger.info("creating directory: " + saveDirectory);
-			boolean result = saveDir.mkdir();
-			if (result) {
-				logger.info("DIR created");
-			}
-		}
+        final String originalFilename = fileUpload.getOriginalFilename();
+        if (logger.isDebugEnabled()) logger.debug("fileName : " + originalFilename + "===" + fileUpload.getContentType());
 
-		// modify file's save location based on the user's email
-		saveDirectory = saveDirectory + email + syntax;
-		logger.info("saveDirectory==>" + saveDirectory);
-		File theDir = new File(saveDirectory);
-		// if the directory does not exist, create it
-		if (!theDir.exists()) {
-			logger.info("creating directory: " + email);
-			boolean result = theDir.mkdir();
-			if (result) {
-				logger.info("DIR created");
-			}
-		}
-		if (!fileUpload.getOriginalFilename().equals("")) {
+		if (!originalFilename.equals("")) {
 			try {
-				fileName = fileUpload.getOriginalFilename();
-				// save the document
-				fileUpload.transferTo(new File(saveDirectory
-						+ fileUpload.getOriginalFilename()));
-			} catch (IllegalStateException e) {
-				logger.error(Constants.LOG_ERROR + e.getMessage());
-			} catch (IOException e) {
-				logger.error(Constants.LOG_ERROR + e.getMessage());
+                File saveDir = CommonUtils.createFileUploadSubDir(emailId);
+				fileName = originalFilename;
+				fileUpload.transferTo(new File(saveDir, originalFilename)); // save the document
+			} catch (IllegalStateException | IOException e) {
+				logger.error(Constants.LOG_ERROR + e.getMessage(), e);
 			}
-		}
+        }
 		logger.info("UserManager: handleFileUpload() ===> ends.");
 		return fileName;
 	}
-	public String handleFileUploadPatient(MultipartFile fileUpload, String email) {
+	public String handleFileUploadPatient(MultipartFile fileUpload, String emailId) {
 		logger.info("UserManager: handleFileUploadPatient() ===> starts.");
-		String saveDirectory = null;
 		String fileName = null;
-		String syntax = null;
-		saveDirectory = Constants.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		syntax = Constants.getPropertyValue(Constants.FILE_UPLOAD_SYNTAX);
-		System.out
-				.println("fileName : " + fileUpload.getOriginalFilename()
-						+ "===" + fileUpload.getContentType() + " : syntax : "
-						+ syntax);
-		
-		if(fileUpload.getContentType().equalsIgnoreCase("application/pdf")){
-			// create upload directory
-			File saveDir = new File(saveDirectory);
-			if (!saveDir.exists()) {
-				logger.info("creating directory: " + saveDirectory);
-				boolean result = saveDir.mkdir();
-				if (result) {
-					logger.info("DIR created");
-				}
-			}
+        final String originalFilename = fileUpload.getOriginalFilename();
+        if (logger.isDebugEnabled()) logger.debug("fileName : " + originalFilename + "===" + fileUpload.getContentType());
 
-			// modify file's save location based on the user's email
-			saveDirectory = saveDirectory + email + syntax;
-			logger.info("saveDirectory==>" + saveDirectory);
-			File theDir = new File(saveDirectory);
-			// if the directory does not exist, create it
-			if (!theDir.exists()) {
-				logger.info("creating directory: " + email);
-				boolean result = theDir.mkdir();
-				if (result) {
-					logger.info("DIR created");
-				}
-			}
-			if (!fileUpload.getOriginalFilename().equals("")) {
+		if(fileUpload.getContentType().equalsIgnoreCase("application/pdf")){
+
+			if (!originalFilename.equals("")) {
+                // create upload directory
+                File saveDir = CommonUtils.createFileUploadSubDir(emailId);
+
 				try {
-					fileName = fileUpload.getOriginalFilename();
+					fileName = originalFilename;
 					// save the document
-					fileUpload.transferTo(new File(saveDirectory
-							+ fileUpload.getOriginalFilename()));
-				} catch (IllegalStateException e) {
-					logger.error(Constants.LOG_ERROR + e.getMessage());
-				} catch (IOException e) {
+					fileUpload.transferTo(new File(saveDir, originalFilename));
+				} catch (IllegalStateException | IOException e) {
 					logger.error(Constants.LOG_ERROR + e.getMessage());
 				}
-			}
+            }
 		}else{
-			System.out.println("else file not pdf");
-			fileName="not";
+            logger.warn("else file not pdf: " + originalFilename + " is " + fileUpload.getContentType());
+			fileName = null;
 		}
-		
 		
 		logger.info("UserManager: handleFileUploadPatient() ===> ends.");
 		return fileName;
@@ -290,10 +218,10 @@ public class UserManager {
 		if (password != null) {
 			Md5PasswordEncoder ms = new Md5PasswordEncoder();
 			password = ms.encodePassword(password, null);
-		} else if (password == null) {
-			throw new BlueHubBusinessException(Constants.PASSWORD_MISMATCH,
-					null);
+		} else {
+			throw new BlueHubBusinessException(Constants.PASSWORD_MISMATCH, null);
 		}
+
 		logger.info("UserManager checkPasswordExist() ends.");
 		return userRegistrationDao.checkPasswordExist(userId, password);
 	}
@@ -307,14 +235,13 @@ public class UserManager {
 	 */
 	public List<DocumentVO> getDocumentsByType(String type) {
 		logger.info("UserManager: getDocumentsByType() ===> starts.");
-		List<DocumentVO> documents = userRegistrationDao
-				.getDocumentByType(type);
+		List<DocumentVO> documents = userRegistrationDao.getDocumentByType(type);
 		logger.info("UserManager: getDocumentsByType() ===> ends.");
 		return documents;
 	}
 
 	public UserVO checkAnswerCorrect(String emailId, String answer)
-			throws Exception, BlueHubRuntimeException {
+			throws Exception {
 		logger.info("UserManager checkAnswerCorrect() starts.");
 		UserVO registrationFormVO = userRegistrationDao.checkAnswerCorrect(
 				emailId, answer);
@@ -343,70 +270,36 @@ public class UserManager {
 	/**
 	 * Newly generated password will be updated in DB and mail will be sent to
 	 * user
-	 * 
-	 * @param registrationFormVO
-	 * @param userPassword
 	 */
-	public void updateForgotPassword(UserVO registrationFormVO,
-			String userPassword) {
+	public void updateForgotPassword(UserVO registrationFormVO, String userPassword) {
 		logger.info("UserManager updateForgotPassword() starts.");
-		String userName = null;
-		String userEmail = null;
-		RoleVO roleVO = null;
-		userName = registrationFormVO.getUserName();
-		userEmail = registrationFormVO.getUserName();
-		roleVO = registrationFormVO.getRole();
+
+		String userName = registrationFormVO.getUserName();
+        String userEmail = registrationFormVO.getUserName();
+		RoleVO roleVO = registrationFormVO.getRole();
 
 		// if child check whether email is valid
 		// if valid email send to child email otherwise send to parent
 		if (roleVO.getRoleName().equals(Constants.CHILD)) {
-			Boolean validEmail = Boolean.FALSE;
 			EmailValidator emailValidator = new EmailValidator();
-			validEmail = emailValidator.validate(userEmail);
+			boolean validEmail = emailValidator.validate(userEmail);
 
 			if (validEmail) {
-				MailSupport.sendForgotPasswordMail(userEmail, userName,
-						userPassword);
-			} else {
-				/*
-				 * RegistrationFormVO parentRegistrationFormVO =
-				 * userRegistrationDao
-				 * .getParentARegistrationFormVOByChildId(registrationFormVO
-				 * .getUserId()); if (null != parentRegistrationFormVO) { String
-				 * parentAFirstName = parentRegistrationFormVO.getFirstName();
-				 * String parentALastName =
-				 * parentRegistrationFormVO.getLastName(); String parentAEmail =
-				 * parentRegistrationFormVO.getUserEmail(); String adminEmail =
-				 * Constants.getMailPropertyValue("adminemail"); Map<String,
-				 * Object> mailParams = new HashMap<String, Object>();
-				 * mailParams.put(Constants.PARENTA_FIRSTNAME,
-				 * parentAFirstName); mailParams.put(Constants.PARENTA_LASTNAME,
-				 * parentALastName); mailParams.put(Constants.PARENTA_EMAIL,
-				 * parentAEmail); mailParams.put(Constants.ADMIN_EMAIL,
-				 * adminEmail); mailParams.put(Constants.USER_EMAIL, userEmail);
-				 * mailParams.put(Constants.NEW_PASSWORD, userPassword);
-				 * MailSupport.sendForgotPasswordMailChild(mailParams); }
-				 */
+				MailSupport.sendForgotPasswordMail(userEmail, userName, userPassword);
 			}
 		} else {
-			MailSupport.sendForgotPasswordMail(userEmail, userName,
-					userPassword);
+			MailSupport.sendForgotPasswordMail(userEmail, userName, userPassword);
 		}
 		userRegistrationDao.updateUserRegistration(registrationFormVO);
 		logger.info("UserManager updateForgotPassword() ends.");
 	}
 
 	/**
-	 * deletes {@link DocumentDetailsVO} from db by emailId and docId
-	 * 
-	 * @param emailId
-	 * @param docId
+	 * deletes DocumentDetailsVO from db by emailId and docId
 	 */
-	public void deleteDocumentDetailsVOByEmailAndDocId(String emailId,
-			Integer docId) {
+	public void deleteDocumentDetailsVOByEmailAndDocId(String emailId, Integer docId) {
 		logger.info("UserManager: deleteDocumentDetailsVOByEmailAndDocId() ===> starts.");
-		userRegistrationDao.deleteDocumentDetailsVOByEmailAndDocId(emailId,
-				docId);
+		userRegistrationDao.deleteDocumentDetailsVOByEmailAndDocId(emailId, docId);
 	}
 
 	public Integer saveUserRegistration(UserVO userDto) {
@@ -520,33 +413,25 @@ public class UserManager {
 	}
 
 	public Long getOutstandingRequestsFromPhysician(Integer userid) {
-		// TODO Auto-generated method stub
 		return userRegistrationDao.getOutstandingRequestsFromPhysician(userid);
 	}
 
-	public Long getAllPhysicianDetailsCOuntByPhysicianName(
-			String searchVal) {
-		// TODO Auto-generated method stub
+	public Long getAllPhysicianDetailsCOuntByPhysicianName(String searchVal) {
 		return userRegistrationDao.getAllPhysicianDetailsCOuntByPhysicianName(searchVal);
 	}
 
-	public List<Object[]> getAllPhysicianDetailsByPhysicianName(
-			Map map) {
-		// TODO Auto-generated method stub
+	public List<Object[]> getAllPhysicianDetailsByPhysicianName(Map map) {
 		return userRegistrationDao.getAllPhysicianDetailsByPhysicianName(map);
 	}
 	public Long updateSignature(Integer userid) {
-		// TODO Auto-generated method stub
 		return userRegistrationDao.updateSignature(userid);
 	}
 	public String checkSignature(Integer userid) {
-		// TODO Auto-generated method stub
 		return userRegistrationDao.checkSignature(userid);
 	}
 	
 	public Integer checkFileStatus(String filename,Integer userid) {
-		// TODO Auto-generated method stub
 		return userRegistrationDao.checkFileStatus(filename,userid);
 	}
-	
+
 }

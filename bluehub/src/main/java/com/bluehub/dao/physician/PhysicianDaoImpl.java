@@ -655,12 +655,10 @@ public class PhysicianDaoImpl extends HibernateDaoSupport implements
 
 		List<VisitsVO> searchPhysician = null;
 
-		Session session = getHibernateTemplate().getSessionFactory()
-				.openSession();
+		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		try {
 
-			String query = "from VisitsVO where prescription like '%" + keyword
-					+ "%'";
+			String query = "from VisitsVO where prescription like '%" + keyword + "%'";
 
 			/*
 			 * String query =
@@ -2350,21 +2348,17 @@ public class PhysicianDaoImpl extends HibernateDaoSupport implements
 
 	@Override
 	public Object[] getPatientPersonalDetailsForEfax(Integer userId) {
-		// TODO Auto-generated method stub
-Object[] obj = null;
-		
-		obj = (Object[]) getSession().createQuery("select concat(u.firstname,' ',u.lastname), v.emailId,u.contact_number from" +
-				" UserPersonalInfoVO u,UserVO v where v.id=:id" +
-				" and v.id = u.userid and v.status=1")
+        return (Object[]) getSession().createQuery(
+                "select concat(u.firstname,' ',u.lastname)," +
+                        " u.dob," +
+                        " concat(u.street,', ',u.city,', ',u.zip)" +
+                        " from UserPersonalInfoVO u,UserVO v where v.id=:id and v.id = u.userid and v.status=1")
 				.setParameter("id", userId)
 				.uniqueResult();
-		
-		return obj;
 	}
 
 	@Override
 	public Integer saveEFaxDetails(FaxVo faxVo) {
-		// TODO Auto-generated method stub
 		logger.info("PhysicianDaoImpl saveEFaxDetails() starts.");
 		Integer id = (Integer) getHibernateTemplate().save(faxVo);
 		logger.info("PhysicianDaoImpl saveEFaxDetails() ends.");
@@ -2374,7 +2368,6 @@ Object[] obj = null;
 
 	@Override
 	public void updateShareStatus(Integer shareId) {
-		// TODO Auto-generated method stub
 		getSession().createSQLQuery("update shareclinicalinfo  set requeststatus='Approved' where id=:id")
 		.setParameter("id", shareId)
 		.executeUpdate();

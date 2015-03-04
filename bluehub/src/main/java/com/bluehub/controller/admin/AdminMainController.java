@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bluehub.util.OSUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -239,52 +240,42 @@ public class AdminMainController {
 	public String adminAllVisits(ModelMap model) {
 
 		logger.debug("AdminController adminhome==>");
-		String viewPage = Constants.ADMIN_ALL_VISITS_VIEW;
-		return viewPage;
+        return Constants.ADMIN_ALL_VISITS_VIEW;
 	}
 
 	@RequestMapping("/administrator/adminencounter.do")
 	public String adminEncounters(ModelMap model) {
 
 		logger.debug("AdminController adminEncounters==>");
-		String viewPage = Constants.ADMIN_ENCOUNTERS_VIEW;
-		return viewPage;
+        return Constants.ADMIN_ENCOUNTERS_VIEW;
 	}
 
 	@RequestMapping("/administrator/adminviewencounter.do")
 	public String adminViewEncounters(ModelMap model) {
 
 		logger.debug("AdminController adminViewEncounters==>");
-		String viewPage = Constants.ADMIN_VIEW_ENCOUNTERS_VIEW;
-		return viewPage;
+        return Constants.ADMIN_VIEW_ENCOUNTERS_VIEW;
 	}
 
 	@RequestMapping("/administrator/adminsearch.do")
 	public String adminSearchController(ModelMap model) {
 
 		logger.debug("adminSearchController");
-		String viewPage = Constants.SEARCH_ADMIN_VIEW;
-		return viewPage;
+        return Constants.SEARCH_ADMIN_VIEW;
 	}
 
 	@RequestMapping("/administrator/admindocumentsearchlist.do")
 	public @ResponseBody
-	String adminDocumentSearchList(
-			@RequestParam(value = "search") String search, ModelMap model) {
+	String adminDocumentSearchList(@RequestParam(value = "search") String search, ModelMap model) {
 
 		logger.debug("adminDocumentSearchList");
 
 		String json = null;
 
-		ArrayList<DocumentList> documentLists = new ArrayList<DocumentList>();
-		String saveDirectory = null;
-		String osSyntax = null;
+		ArrayList<DocumentList> documentLists = new ArrayList<>();
 		DocumentList documentList = null;
 
-		saveDirectory = Constants
-				.getPropertyValue(Constants.FAREFILE_UPLOAD_PATH);
-
-		osSyntax = Constants.getPropertyValue(Constants.FILE_UPLOAD_SYNTAX);
+		String saveDirectory = Constants.getPlatformProperyValue(Constants.FAREFILE_UPLOAD_PATH);
 
 		File file = new File(saveDirectory);
 
@@ -295,7 +286,6 @@ public class AdminMainController {
 			if (files.isFile()) {
 
 			} else if (files.isDirectory()) {
-				/* pathLists = findText(files.getAbsolutePath(),search); */
 				pathLists = findText(files.getAbsolutePath(), search);
 				for (int i = 0; i < pathLists.size(); i++) {
 
@@ -310,10 +300,9 @@ public class AdminMainController {
 					 * .lastIndexOf("/")+1), replaceString.length()));
 					 */
 
-					if (osSyntax.equals("\\\\")) {
+					if (OSUtils.isWindows()) {
 						logger.info("windows");
-						replaceString = pathLists.get(i)
-								.replaceAll("\\\\", "/");
+						replaceString = pathLists.get(i).replaceAll("\\\\", "/");
 
 						pathSplit = replaceString.split("/");
 
@@ -332,11 +321,11 @@ public class AdminMainController {
 													.parseInt(pathSplit[2])));
 						}
 
-					} else if (osSyntax == "/") {
+					} else {
 						logger.info("linux");
 						filename = pathLists.get(i).substring(
-								(pathLists.get(i).lastIndexOf("/") + 1),
-								pathLists.get(i).length());
+                                (pathLists.get(i).lastIndexOf("/") + 1),
+                                pathLists.get(i).length());
 						documentList.setFilename(filename);
 					}
 
@@ -2132,7 +2121,6 @@ public class AdminMainController {
 		String response = null;
 		try {
 
-			Integer userid = 0;
 			String returnValue=null;
 			/*
 			 * String docId = request.getParameter("docId"); String emailId =
@@ -2140,26 +2128,22 @@ public class AdminMainController {
 			 * request.getParameter("type");
 			 */
 
-			UserProfile user = (UserProfile) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
+			UserProfile user = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 			Iterator<String> it = request.getFileNames();
 			while (it.hasNext()) {
 
-				String fileName = (String) it.next();
-				
+				String fileName = it.next();
 				MultipartFile file = request.getFile(fileName);
-
 				String emailId = user.getId().toString();
-				String role=user.getRoleid();
-				System.out.println("user.getRoleid : "+role);
+				String role = user.getRoleid();
+
 				if(role.equalsIgnoreCase("Patient")){
 					returnValue=userManager.handleFileUploadPatient(file, emailId);
 				}else{
 					returnValue=userManager.handleFileUpload(file, emailId);
 				}
-				
-				
+
 				/*
 				 * Integer createdby = user.getId(); Timestamp createdOnTime =
 				 * new Timestamp(new Date().getTime());
@@ -2178,17 +2162,16 @@ public class AdminMainController {
 				 * userManager.savePatientDocument(documentVO);
 				 */
 			}
-			System.out.println("returnValue : "+returnValue);
-			if(returnValue.equalsIgnoreCase("not")){
-				System.out.println("not");
+            if (logger.isDebugEnabled()) logger.debug("returnValue : "+returnValue);
+
+			if(returnValue == null){
 				response = "error";
 			}else{
 				response = Constants.SUCCESS;
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.LOG_ERROR + e.getMessage());
+			logger.error(Constants.LOG_ERROR + e.getMessage(), e);
 		}
 		return response;
 	}
@@ -2334,10 +2317,8 @@ public class AdminMainController {
 		File destinationFile = null;
 		String returnPath = null;
 		String result = null;
-		String sourcePath = Constants
-				.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		String destinationPath = Constants
-				.getPropertyValue(Constants.FAREFILE_UPLOAD_PATH);
+		String sourcePath = Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH);
+		String destinationPath = Constants.getPlatformProperyValue(Constants.FAREFILE_UPLOAD_PATH);
 
 		try {
 
@@ -2516,10 +2497,8 @@ public class AdminMainController {
 		File destinationFile = null;
 		String returnPath = null;
 		String result = null;
-		String sourcePath = Constants
-				.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		String destinationPath = Constants
-				.getPropertyValue(Constants.FAREFILE_UPLOAD_PATH);
+		String sourcePath = Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH);
+		String destinationPath = Constants.getPlatformProperyValue(Constants.FAREFILE_UPLOAD_PATH);
 
 		String faxUsername = null;
 		String faxNumber=null;
@@ -2528,8 +2507,7 @@ public class AdminMainController {
 		String encryptionKey=null;
 		String faxTrash = null;
 		
-				faxTrash = Constants
-						.getPropertyValue(Constants.FAX_TRASH_PATH);
+				faxTrash = Constants.getPlatformProperyValue(Constants.FAX_TRASH_PATH);
 		
 				faxUsername = Constants.getEfaxPropertyValue("faxusername");
 				faxNumber = Constants.getEfaxPropertyValue("faxnumber");
@@ -3442,8 +3420,6 @@ public class AdminMainController {
 
 	int[] areaToScan = null;
 
-	String separator = System.getProperty("file.separator");
-
 	PdfDecoder decodePdf = null;
 
 	private File xmlOutputFile;
@@ -3457,7 +3433,7 @@ public class AdminMainController {
 
 		co_ords = new ArrayList();
 
-		pathLists = new ArrayList<String>();
+		pathLists = new ArrayList<>();
 		File targetFile = new File(file_name);
 
 		if (file_name.toLowerCase().endsWith(".pdf")) {
@@ -3467,8 +3443,8 @@ public class AdminMainController {
 			String[] files = targetFile.list();
 
 			// make sure name ends with a deliminator for correct path later
-			if (!file_name.endsWith(separator)) {
-				file_name = file_name + separator;
+			if (!file_name.endsWith(File.separator)) {
+				file_name = file_name + File.separator;
 			}
 
 			// now work through all pdf files

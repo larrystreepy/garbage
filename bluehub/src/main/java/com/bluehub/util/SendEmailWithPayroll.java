@@ -72,8 +72,7 @@ public class SendEmailWithPayroll {
 			MimeBodyPart messageBodyPart2 = new MimeBodyPart();
 
 			String fileName = pdfFileName;
-			String saveDirectory = Constants
-					.getPropertyValue(Constants.FILE_UPLOAD_PATH);
+			String saveDirectory = Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH);
 			saveDirectory = saveDirectory + fileName;
 			DataSource source = new FileDataSource(saveDirectory);
 			messageBodyPart2.setDataHandler(new DataHandler(source));

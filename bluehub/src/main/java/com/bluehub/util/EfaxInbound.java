@@ -1,8 +1,8 @@
 package com.bluehub.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,42 +13,35 @@ import com.sfax.rest.inbound.IRetrieve;
 import com.sfax.rest.xml.ServiceResponse;
 
 public class EfaxInbound {
-	
-	public static void callEFaxInbound() throws ParseException {
-		
-		String faxUsername = null;
-		String faxNumber=null;
-		String webApiKey=null;
-		String vector=null;
-		String encryptionKey=null;
-		String downLoadPath = null;
-		faxUsername = Constants.getEfaxPropertyValue("faxusername");
-		faxNumber = Constants.getEfaxPropertyValue("faxnumber");
-		webApiKey = Constants.getEfaxPropertyValue("webapikey");
-		vector = Constants.getEfaxPropertyValue("vector");
-		encryptionKey = Constants.getEfaxPropertyValue("encryptionkey");
-		
-		downLoadPath = Constants.getPropertyValue(Constants.FAX_DOWNLOAD_PATH);
-		System.out.println("Quartzzz");
-		
-		
-		SFax.init(faxUsername,webApiKey,vector,encryptionKey,faxNumber);//Enter a Valid Username, WebApiKey, Vector, EncryptionKey and Fax Number
-		 ServiceResponse sr = null;
-		String jsonData  = IRetrieve.inboundFaxRetrieveSet(); 
-			JSONParser parser = new JSONParser();
-			JSONObject json = (JSONObject) parser.parse(jsonData);
-			Long length = (Long) json.get("FaxCount");
-			List<JSONObject> list = new ArrayList<JSONObject>();
-			list =  (List<JSONObject>) json.get("InboundFaxItems");
-			for(int i = 0;i<list.size();i++){
-				JSONObject js =   list.get(i);
-				String faxnum = (String) js.get("FaxId");
-				sr = IDownloadPdf.inboundFaxDownloadPdf(faxnum,downLoadPath+faxnum+".pdf"); //Enter a valid FaxId and Path with name of a file to save**/
-		
+
+    private static final Logger logger = Logger.getLogger(EfaxInbound.class);
+
+    public static void callEFaxInbound() throws ParseException {
+
+        String faxUsername = Constants.getEfaxPropertyValue("faxusername");
+        String faxNumber = Constants.getEfaxPropertyValue("faxnumber");
+        String webApiKey = Constants.getEfaxPropertyValue("webapikey");
+        String vector = Constants.getEfaxPropertyValue("vector");
+        String encryptionKey = Constants.getEfaxPropertyValue("encryptionkey");
+
+        String downLoadPath = Constants.getPlatformProperyValue(Constants.FAX_DOWNLOAD_PATH);
+
+        if (logger.isDebugEnabled()) logger.debug("Poll inbound EFax queue");
+
+        SFax.init(faxUsername, webApiKey, vector, encryptionKey, faxNumber);
+        String jsonData = IRetrieve.inboundFaxRetrieveSet();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(jsonData);
+
+        //noinspection unchecked
+        for (JSONObject js : (List<JSONObject>) json.get("InboundFaxItems")) {
+            String faxId = (String) js.get("FaxId");
+            ServiceResponse sr = IDownloadPdf.inboundFaxDownloadPdf(faxId, downLoadPath + faxId + ".pdf");
+
 //			 here the code for sending mail
-		
-			}
-	
-	}
+
+        }
+
+    }
 
 }

@@ -26,14 +26,7 @@ import com.google.gson.JsonObject;
 public class CommonUtils {
 	private static Logger logger = Logger.getLogger(CommonUtils.class);
 
-	/**
-	 * Method to parse String to Timestamp
-	 * 
-	 * @param dateAsString
-	 * @return TimeStamp
-	 */
-	
-public static String convertMaptoJsonForGrid(List finalReportList,Long totalValue,Integer sEcho){
+    public static String convertMaptoJsonForGrid(List finalReportList,Long totalValue,Integer sEcho){
 		
         Gson gson = new Gson();
 		
@@ -42,11 +35,10 @@ public static String convertMaptoJsonForGrid(List finalReportList,Long totalValu
 		jsonResponse.addProperty("iTotalRecords", totalValue);
 		jsonResponse.addProperty("iTotalDisplayRecords", totalValue);			
 		jsonResponse.add("aaData", gson.toJsonTree(finalReportList));
-		
-		String finalJson = jsonResponse.toString();
-		
-		return finalJson;
+
+        return jsonResponse.toString();
 	}
+
 	public static java.sql.Date parseDateFromString(String dateAsString) {
 		logger.info("CommonUtils parseDateFromString() starts.");
 		Date date = null;
@@ -115,15 +107,47 @@ public static String convertMaptoJsonForGrid(List finalReportList,Long totalValu
 		return floatNo;
 	}
 
+    public static File createDir(String dirName, String subdir)
+    {
+        final boolean haveSubdir = subdir != null && !subdir.isEmpty();
+
+        final File saveDir = haveSubdir ? new File(dirName, subdir) : new File(dirName);
+
+        if (!saveDir.exists()) {
+            logger.info("creating directory: " + saveDir);
+
+            if (saveDir.mkdirs()) {
+                logger.info("DIR created");
+            } else
+            {
+                logger.error("Failed to create directory: " + saveDir);
+                return null;
+            }
+        }
+        return saveDir;
+    }
+
+    /**
+     * Create the upload directory if it is not present.
+     */
+    public static File createFileUploadDir()
+    {
+        return createDir(Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH), null);
+    }
+
+    /**
+     * Create a subdirectory in the upload area.  Create the upload directory if it is not present.
+     *
+     * @param subdir Subdirectory to create
+     */
+    public static File createFileUploadSubDir(String subdir)
+    {
+        return createDir(Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH), subdir);
+    }
+
 	public static String getUploadFilePath() throws IOException {
 		logger.info("CommonUtils getUploadFilePath() starts.");
-		String filePath = Constants
-				.getPropertyValue(Constants.FILE_UPLOAD_PATH);
-		String syntax = Constants
-				.getPropertyValue(Constants.FILE_UPLOAD_SYNTAX);
-		String saveDirectory = filePath + Constants.ADMIN_MAIL_ID + syntax;
-		;
-		return saveDirectory;
+        return Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH) + Constants.ADMIN_MAIL_ID + File.separator;
 	}
 
 	public static Integer parseIntFromString(String intAsString) {

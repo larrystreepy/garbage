@@ -535,8 +535,7 @@ public class MailSupport  {
 	
 	
 	
-	public static void sendPatientRequestMail(String userEmail,
-			String userName,String serverUrl) {
+	public static void sendPatientRequestMail(String userEmail, String userName,String serverUrl) {
 		
 		logger.info("sendPatientRequestMail : ");
 		
@@ -545,100 +544,44 @@ public class MailSupport  {
         //System.out.println(dateFormat.format(date).toString());
 
 		StringBuffer bodyContent = new StringBuffer();
-		String subject1 = Constants
-				.getPropertyValue(Constants.PATIENT_REQUEST_SUBJECT);
-		String dear = Constants
-				.getPropertyValue(Constants.PATIENT_REQUEST_DEAR);
-		String mailContent = Constants
-				.getPropertyValue(Constants.PATIENT_REQUEST_CONTENT);
-		String best = Constants
-				.getPropertyValue(Constants.PATIENT_REQUEST_BEST);
-		String click_linkhere = Constants
-			    .getPropertyValue(Constants.click_linkhere);
+		String subject1 = Constants.getPropertyValue(Constants.PATIENT_REQUEST_SUBJECT);
+		String dear = Constants.getPropertyValue(Constants.PATIENT_REQUEST_DEAR);
+		String mailContent = Constants.getPropertyValue(Constants.PATIENT_REQUEST_CONTENT);
+		String best = Constants.getPropertyValue(Constants.PATIENT_REQUEST_BEST);
+		String click_linkhere = Constants.getPropertyValue(Constants.click_linkhere);
 		String adminEmail = Constants.getMailPropertyValue("adminemail");
 		
-		String newheadingsubject=Constants
-			    .getPropertyValue(Constants.newheadingsubject);
+		String newheadingsubject=Constants.getPropertyValue(Constants.newheadingsubject);
+		String newheadingsubject1=Constants.getPropertyValue(Constants.newheadingsubject1);
 		
-		String newheadingsubject1=Constants
-			    .getPropertyValue(Constants.newheadingsubject1);
-		
-		String newsubject=Constants
-			    .getPropertyValue(Constants.newsubject);
-		
-		String newsubjectt=Constants
-			    .getPropertyValue(Constants.newsubjectt);
+		String newsubject=Constants.getPropertyValue(Constants.newsubject);
+		String newsubjectt=Constants.getPropertyValue(Constants.newsubjectt);
 
-		String newsubject1=Constants
-			    .getPropertyValue(Constants.newsubject1);
+		String newsubject1=Constants.getPropertyValue(Constants.newsubject1);
+		String newsubject2=Constants.getPropertyValue(Constants.newsubject2);
+		String newsubject3=Constants.getPropertyValue(Constants.newsubject3);
+		String newsubject4=Constants.getPropertyValue(Constants.newsubject4);
+		String newsubject5=Constants.getPropertyValue(Constants.newsubject5);
+		String newsubject6=Constants.getPropertyValue(Constants.newsubject6);
+		String newsubject7=Constants.getPropertyValue(Constants.newsubject7);
+		String newsubject8=Constants.getPropertyValue(Constants.newsubject8);
+		String newsubject9=Constants.getPropertyValue(Constants.newsubject9);
+		String newsubject10=Constants.getPropertyValue(Constants.newsubject10);
+		String newsubject11=Constants.getPropertyValue(Constants.newsubject11);
+		String newsubject12=Constants.getPropertyValue(Constants.newsubject12);
+		String newsubject13=Constants.getPropertyValue(Constants.newsubject13);
+		String newsubject14=Constants.getPropertyValue(Constants.newsubject14);
+		String newsubject15=Constants.getPropertyValue(Constants.newsubject15);
+		String newsubject16=Constants.getPropertyValue(Constants.newsubject16);
+		String newsubject17=Constants.getPropertyValue(Constants.newsubject17);
+		String newsubject18=Constants.getPropertyValue(Constants.newsubject18);
+		String newsubject19=Constants.getPropertyValue(Constants.newsubject19);
+		String newsubject20=Constants.getPropertyValue(Constants.newsubject20);
+		String newsubject21=Constants.getPropertyValue(Constants.newsubject21);
 		
-		String newsubject2=Constants
-			    .getPropertyValue(Constants.newsubject2);
-		
-		String newsubject3=Constants
-			    .getPropertyValue(Constants.newsubject3);
-		
-		String newsubject4=Constants
-			    .getPropertyValue(Constants.newsubject4);
-		
-		
-		String newsubject5=Constants
-			    .getPropertyValue(Constants.newsubject5);
-		
-		String newsubject6=Constants
-			    .getPropertyValue(Constants.newsubject6);
-		
-		String newsubject7=Constants
-			    .getPropertyValue(Constants.newsubject7);
-		
-		String newsubject8=Constants
-			    .getPropertyValue(Constants.newsubject8);
-		
-		String newsubject9=Constants
-			    .getPropertyValue(Constants.newsubject9);
-		
-		String newsubject10=Constants
-			    .getPropertyValue(Constants.newsubject10);
-		
-		String newsubject11=Constants
-			    .getPropertyValue(Constants.newsubject11);
-		
-		String newsubject12=Constants
-			    .getPropertyValue(Constants.newsubject12);
-		
-		String newsubject13=Constants
-			    .getPropertyValue(Constants.newsubject13);
-		
-		String newsubject14=Constants
-			    .getPropertyValue(Constants.newsubject14);
-		
-		String newsubject15=Constants
-			    .getPropertyValue(Constants.newsubject15);
-		
-		String newsubject16=Constants
-			    .getPropertyValue(Constants.newsubject16);
-		
-		String newsubject17=Constants
-			    .getPropertyValue(Constants.newsubject17);
-		
-		String newsubject18=Constants
-			    .getPropertyValue(Constants.newsubject18);
-		
-		String newsubject19=Constants
-			    .getPropertyValue(Constants.newsubject19);
-		
-		String newsubject20=Constants
-			    .getPropertyValue(Constants.newsubject20);
-		
-		String newsubject21=Constants
-			    .getPropertyValue(Constants.newsubject21);
-		
-		String subjecturl=Constants
-			    .getPropertyValue(Constants.subjecturl);
-		String newsubject111=Constants
-			    .getPropertyValue(Constants.newsubject111);
-		String newsubjectfaxno=Constants
-			    .getPropertyValue(Constants.newsubjectfaxno);
+		String subjecturl=Constants.getPropertyValue(Constants.subjecturl);
+		String newsubject111=Constants.getPropertyValue(Constants.newsubject111);
+		String newsubjectfaxno=Constants.getPropertyValue(Constants.newsubjectfaxno);
 		
 		String subject = subject1;
 		
@@ -646,7 +589,7 @@ public class MailSupport  {
 		
 		String activateLink="<a href='"+serverUrl+"'>"+click_linkhere+"</a>";
 		
-		String subjecturllink="<a href='www.bluehubhealth.com/requested'>"+subjecturl+"</a>";
+		String subjecturllink="<a href='http://www.bluehubhealth.com/requested'>"+subjecturl+"</a>";
 		
 		StringBuilder tableContent = new StringBuilder();
 		tableContent.append("<html><body>");
@@ -663,137 +606,137 @@ public class MailSupport  {
 		tableContent.append("<br>");
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newheadingsubject + "</b></td>");
+		tableContent.append("<td colspan='4'><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newheadingsubject).append("</b></td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newheadingsubject1 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newheadingsubject1).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject + " " + userName + " "+newsubjectt+ "</td>");
+		tableContent.append("<td colspan='4'>").append(newsubject).append(" ").append(userName).append(" ").append(newsubjectt).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		/*tableContent.append("<br>");*/
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject1 + " "+subjecturllink+" "+newsubject111+" <b>"+newsubjectfaxno+"</b></td>");
+		tableContent.append("<td colspan='4'>").append(newsubject1).append(" ").append(subjecturllink).append(" ").append(newsubject111).append(" <b>").append(newsubjectfaxno).append("</b></td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject2 + "</td>");
+		tableContent.append("<td colspan='4'>").append(newsubject2).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject3 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject3).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject4 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject4).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject5 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject5).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject6 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject6).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject7 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject7).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject8 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject8).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject9 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject9).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject10 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject10).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject11 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject11).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject12 + "</td>");
-		tableContent.append("</tr>");
-		/*tableContent.append("<br>");*/
-		tableContent.append("<br>");
-		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject13 + "</td>");
+		tableContent.append("<td colspan='4'>").append(newsubject12).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject14 + "</td>");
-		tableContent.append("</tr>");
-		tableContent.append("<br>");
-		/*tableContent.append("<br>");*/
-		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject15 + "</td>");
-		tableContent.append("</tr>");
-		tableContent.append("<br>");
-		/*tableContent.append("<br>");*/
-		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + newsubject16 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject13).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject17 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject14).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject18 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject15).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject19 + "</td>");
+		tableContent.append("<td colspan='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;").append(newsubject16).append("</td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject20 + "</td>");
+		tableContent.append("<td colspan='4'>").append(newsubject17).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		/*tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'><b>" + userName + " / " + dateFormat.format(date).toString() + ",</b></td>");
+		tableContent.append("<td colspan='4'>").append(newsubject18).append("</td>");
+		tableContent.append("</tr>");
+		tableContent.append("<br>");
+		/*tableContent.append("<br>");*/
+		tableContent.append("<tr>");
+		tableContent.append("<td colspan='4'>").append(newsubject19).append("</td>");
+		tableContent.append("</tr>");
+		/*tableContent.append("<br>");*/
+		tableContent.append("<br>");
+		tableContent.append("<tr>");
+		tableContent.append("<td colspan='4'>").append(newsubject20).append("</td>");
+		tableContent.append("</tr>");
+		tableContent.append("<br>");
+		/*tableContent.append("<br>");*/
+		tableContent.append("<tr>");
+		tableContent.append("<td colspan='4'><b>").append(userName).append(" / ").append(dateFormat.format(date)).append(",</b></td>");
 		tableContent.append("</tr>");
 		/*tableContent.append("<br>");
 		tableContent.append("<br>");*/
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + newsubject21 + "</td>");
+		tableContent.append("<td colspan='4'>").append(newsubject21).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + activateLink + "</td>");
+		tableContent.append("<td colspan='4'>").append(activateLink).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		tableContent.append("<tr>");
-		tableContent.append("<td colspan='4'>" + best + "</td>");
+		tableContent.append("<td colspan='4'>").append(best).append("</td>");
 		tableContent.append("</tr>");
 		tableContent.append("<br>");
 		
@@ -817,8 +760,7 @@ public class MailSupport  {
 		} catch (MessagingException e) {
 			logger.error(Constants.LOG_ERROR + e.getMessage());
 		}
-		sendMultipartEmailWithForCase(sendEmailIds, adminEmail, subject,
-				mp);
+		sendMultipartEmailWithForCase(sendEmailIds, adminEmail, subject, mp);
 		
 	}
 
