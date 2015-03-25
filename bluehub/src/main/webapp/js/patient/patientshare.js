@@ -312,34 +312,23 @@ function pendingSubmitSharePatient(){
 	for(var i = 0;i<count;i++){
 		if(document.getElementById("hdnDocCheck_"+i).checked==true){
 			var val = document.getElementById("hdnDocId_"+i).value;
-			
 			ur  = ur + "&checked_"+i+"="+val;
-			
-			
-				
 		}else{
-			
 			ur  = ur + "&checked_"+i+"=0";
 		}
-		
-	
-	if(document.getElementById("hdnDocCheck1_"+i).checked==true){
-		var val = document.getElementById("hdnDocId1_"+i).value;
-		
-		ur  = ur + "&checked1_"+i+"="+val;
-		
-		
-		
-	}else{
-		
-		ur  = ur + "&checked1_"+i+"=0";
+
+        if(document.getElementById("hdnDocCheck1_"+i).checked==true){
+            var val = document.getElementById("hdnDocId1_"+i).value;
+            ur  = ur + "&checked1_"+i+"="+val;
+        }else{
+            ur  = ur + "&checked1_"+i+"=0";
+        }
 	}
-	
-	}
+
 	var phyEmailId = '';
 	var emailSubject = '';
 	var shareId = '';
-	phyEmailId = document.getElementById('physicianEmailId').value;
+//	phyEmailId = document.getElementById('physicianEmailId').value;
 	
 	var phyId = document.getElementById("hdnPhysicianId").value;
 	var patId = document.getElementById("hdnPatientId").value;
@@ -414,12 +403,12 @@ function pendingSubmitSharePatient(){
 function submitSharePatient(){
 	var phyEmailId = '';
 	var emailSubject = '';
-	phyEmailId = document.getElementById('physicianEmailId').value;
+//	phyEmailId = document.getElementById('physicianEmailId').value;
 	
 	var phyId = document.getElementById("hdnPhysicianId").value;
 	var patId = document.getElementById("hdnPatientId").value;
 	
-	if(phyId == '' && phyEmailId == ''){		
+	if(phyId == '' && phyEmailId == ''){
 		document.getElementById('errPhysicianEmail').style.display = "block";
 		setTimeout('fnClearMsgField()', 3000);
 	}else{
@@ -692,12 +681,9 @@ function fnSetPhysicianvalue(id){
 								//alert(parsedJson[i].userName)
 								//content = content + '<tr onclick="displayUserData(\''+parsedJson[i].userId+'\',\''+i+'\',\''+obj.length+'\')">';
 								content += '<td ><input type="radio" onclick="fnSetPhysicianvalue('+parsedJson[i].userid+')" id="physicianRadio" value='+parsedJson[i].userid+' name="physicianRadio"></td>';
-								content += '<td id="agencytd'+i+'"  class="user_list_link">'
-										+ parsedJson[i].firstname + '</td>';
-								content += '<td id="emailtd'+i+'"  class="user_list_link">'
-										+ parsedJson[i].organizationName + '</td>';
-								content += '<td id="addresstd'+i+'"  class="user_list_link">'
-										+ parsedJson[i].practicename + '</td>';
+								content += '<td id="agencytd'+i+'"  class="user_list_link">' + parsedJson[i].firstname + '</td>';
+								content += '<td id="emailtd'+i+'"  class="user_list_link">' + parsedJson[i].organizationName + '</td>';
+								content += '<td id="addresstd'+i+'"  class="user_list_link">' + parsedJson[i].practicename + '</td>';
 								content = content + '</tr>';
 							}
 	

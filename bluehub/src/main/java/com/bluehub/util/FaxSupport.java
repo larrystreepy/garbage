@@ -28,6 +28,14 @@ public class FaxSupport {
         String vector = Constants.getEfaxPropertyValue("vector");
         String encryptionKey = Constants.getEfaxPropertyValue("encryptionkey");
 
+        // Ensure the fax number is in a reasonable format (no hyphens or spaces)
+        toFaxNumber = toFaxNumber.trim();
+        toFaxNumber = toFaxNumber.replace("-", "");
+        toFaxNumber = toFaxNumber.replace(" ", "");
+
+        // We only allow faxing to the US for now, so ensure that the number starts with a 1
+        if (toFaxNumber.charAt(0) != '1') toFaxNumber = "1" + toFaxNumber;
+
         SFax.init(faxUsername, webApiKey, vector, encryptionKey, myFaxNumber);
         String response = OCreate.outboundFaxCreate(toFaxNumber, "Requesting_Clinical_Information", filePath, "");
 

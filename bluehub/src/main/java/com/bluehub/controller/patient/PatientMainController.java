@@ -460,7 +460,7 @@ public class PatientMainController {
 
         Object[] obj = physicianManager.getPatientPersonalDetailsForEfax(userId);
         String name = String.valueOf(obj[0]);
-        Date dob = (Date)obj[1];
+        Date dob = (Date) obj[1];
         String address = String.valueOf(obj[2]);
 
         String filePath;
@@ -504,7 +504,7 @@ public class PatientMainController {
 
         Object[] obj = physicianManager.getPatientPersonalDetailsForEfax(userId);
         String name = String.valueOf(obj[0]);
-        Date dob = (Date)obj[1];
+        Date dob = (Date) obj[1];
         String address = String.valueOf(obj[2]);
 
         String filePath;
@@ -558,7 +558,12 @@ public class PatientMainController {
     @ResponseBody
     String savePatientMailRequest(@RequestParam String mailid, ModelMap model,
                                   HttpServletRequest request, @RequestParam String fax) throws ParseException {
-        logger.info("patientrequestmailinfo starts");
+        logger.info("savePatientMailRequest starts");
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug(String.format("emailid='%s' fax='%s'", mailid, fax));
+        }
 
         String json = "";
         UserProfile user = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -569,7 +574,7 @@ public class PatientMainController {
             Object[] obj = physicianManager.getPatientPersonalDetailsForEfax(userId);
 
             String name = String.valueOf(obj[0]);
-            Date dob = (Date)obj[1];
+            Date dob = (Date) obj[1];
             String address = String.valueOf(obj[2]);
 
             String filePath;
@@ -586,45 +591,45 @@ public class PatientMainController {
             String queueId = (String) faxResponse.get("SendFaxQueueId");
             json = (String) faxResponse.get("message");
 
+            if (logger.isDebugEnabled()) logger.debug("faxResponse: " + json + " queueId=" + queueId);
+
             if (!queueId.equals("-1")) {
                 auditFax(request, userId, fax, organizationId, queueId, "physician");
             }
         }
 
-        if (userManager.getUserName(userId) != null) {
+        if (!mailid.isEmpty() && userManager.getUserName(userId) != null) {
             EmailValidator emailValidator = new EmailValidator();
             boolean validEmail = emailValidator.validate(mailid);
             boolean haveJson = !json.isEmpty();
 
             if (logger.isDebugEnabled()) logger.debug("Send mail: mailid='" + mailid + "' valid=" + validEmail);
 
-            if (!mailid.isEmpty()) {
-                if (validEmail) {
-                    String serverUrl = request.getScheme() + "://"
-                            + request.getServerName() + ":"
-                            + request.getServerPort() + "/" + request.getContextPath();
+            if (validEmail) {
+                String serverUrl = request.getScheme() + "://"
+                        + request.getServerName() + ":"
+                        + request.getServerPort() + "/" + request.getContextPath();
 
-                    if (logger.isDebugEnabled()) logger.debug("serverUrl=" + serverUrl);
+                if (logger.isDebugEnabled()) logger.debug("serverUrl=" + serverUrl);
 
-                    MailSupport.sendPatientRequestMail(mailid, userManager.getUserName(userId), serverUrl);
-                    json = json + " " + Constants.getPropertyValue(Constants.MAIL_SENT_SUCCESS);
+                MailSupport.sendPatientRequestMail(mailid, userManager.getUserName(userId), serverUrl);
+                json = json + " " + Constants.getPropertyValue(Constants.MAIL_SENT_SUCCESS);
 
-                    AuditTrailVO dto = AuditTrailUtil
-                            .SaveAuditTrailDetails(0, request,
-                                    Constants.PATIENT_DOCUMENTS, Constants.NON_DB,
-                                    "Requesting For Clinical Information through physician email");
+                AuditTrailVO dto = AuditTrailUtil
+                        .SaveAuditTrailDetails(0, request,
+                                Constants.PATIENT_DOCUMENTS, Constants.NON_DB,
+                                "Requesting For Clinical Information through physician email");
 
-                    userManager.saveAuditTrails(dto);
+                userManager.saveAuditTrails(dto);
 
-                } else {
-                    logger.info("error mail");
-                    if (haveJson) json += ", ";
-                    json = json + "Invalid Mail Id";
-                }
             } else {
-                if (haveJson) {
-                    json = json + " ";
-                }
+                logger.info("error mail");
+                if (haveJson) json += ", ";
+                json = json + "Invalid EMail Id";
+            }
+        } else {
+            if (!json.isEmpty()) {
+                json = json + " ";
             }
         }
 
@@ -1400,10 +1405,10 @@ public class PatientMainController {
             content.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Name:", labelX, y, 0);
             content.showTextAligned(PdfContentByte.ALIGN_LEFT, name, valueX, y, 0);
 
-            content.showTextAligned(PdfContentByte.ALIGN_RIGHT, "DOB:", labelX, y-15, 0);
+            content.showTextAligned(PdfContentByte.ALIGN_RIGHT, "DOB:", labelX, y - 15, 0);
             content.showTextAligned(PdfContentByte.ALIGN_LEFT, CommonUtils.parseStringFromDate(dob), valueX, y - 15, 0);
 
-            content.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Address:", labelX, y-30, 0);
+            content.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Address:", labelX, y - 30, 0);
             content.showTextAligned(PdfContentByte.ALIGN_LEFT, address, valueX, y - 30, 0);
 
             // Add the Signature and date

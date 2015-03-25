@@ -836,16 +836,18 @@ public class AdminMainController {
 	public @ResponseBody
 	String loadPhysicianDetails(@RequestParam String searchphysician,
 			@RequestParam String orgid, @RequestParam String practiceid) {
-		logger.info("adminphysiciandetails starts");
+		logger.info("loadPhysicianDetails starts");
+
+        // FIXME:
+        // GET /administrator/adminphysiciandetails.do?searchphysician=l&orgid=&practiceid=&_=1426181445214
+        // Note empty orgid and practiceid - leads to sql failures
+
 		String json = null;
-		JsonResponse jsonResponse = new JsonResponse();
-		int emailExist = 0;
-		List<SearchPhysicianForm> registrationFormVO = null;
 		try {
 			if (searchphysician != null) {
 				searchphysician = searchphysician.toLowerCase();
 			}
-			registrationFormVO = userManager.getPhysicianDetails(
+            List<SearchPhysicianForm> registrationFormVO = userManager.getPhysicianDetails(
 					searchphysician, orgid, practiceid);
 
 			if (registrationFormVO != null && registrationFormVO.size() > 0) {

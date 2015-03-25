@@ -122,10 +122,8 @@ public class UserManager {
 		return userRegistrationDao.getUserRegistrationByMail(userEmail);
 	}
 
-	public List<SearchPhysicianForm> getPhysicianDetails(
-			String searchphysician, String orgid, String practiceid) {
-		return userRegistrationDao.getPhysicianDetails(searchphysician, orgid,
-				practiceid);
+	public List<SearchPhysicianForm> getPhysicianDetails(String searchphysician, String orgid, String practiceid) {
+		return userRegistrationDao.getPhysicianDetails(searchphysician, orgid, practiceid);
 	}
 
 	public List<SearchPhysicianForm> getAllPhysicianDetails(String orgid,
@@ -426,6 +424,7 @@ public class UserManager {
 	public Long updateSignature(Integer userid) {
 		return userRegistrationDao.updateSignature(userid);
 	}
+
 	public String checkSignature(Integer userid) {
 		return userRegistrationDao.checkSignature(userid);
 	}

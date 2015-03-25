@@ -31,8 +31,9 @@
 <%-- <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/bower_components/font-awesome-4.2.0/css/font-awesome.css">  --%>
 	
-	 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	
+<%-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> --%>
+<link href="<%=request.getContextPath()%>/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
 	
 <link media="screen" rel="stylesheet"
 	href="<%=request.getContextPath()%>/bower_components/animate.css/animate.css">
@@ -61,152 +62,70 @@
 	href="<%=request.getContextPath()%>/styles/pages-style.css"
 	rel="stylesheet">
 
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery/jquery.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqueryui/ui/jquery-ui.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/pace/pace.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery-pjax/jquery.pjax.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/masonry/masonry.pkgd.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/screenfull/dist/screenfull.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/countUp.js/countUp.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/skycons/skycons.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.lazyload/jquery.lazyload.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/WOW/dist/wow.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.validation/jquery.validate.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.validation/additional-methods.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/autogrow-textarea/jquery.autogrowtextarea.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/typeahead.js/dist/typeahead.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.tagsinput/jquery.tagsinput.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/multiselect/js/jquery.multi-select.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/select2/select2.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery-selectboxit/src/javascripts/jquery.selectBoxIt.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/momentjs/moment.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/dropzone/downloads/dropzone.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery-steps/build/jquery.steps.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/fullcalendar/fullcalendar.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/markdown.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/to-markdown.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/raphael/raphael-min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/morris.js/morris.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.resize.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.categories.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.time.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/flot-axislabels/jquery.flot.axislabels.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/sparkline/dist/jquery.sparkline.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/datatables/media/js/jquery.dataTables.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/datatables-tools/js/dataTables.tableTools.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/datatables-bootstrap3/BS3/assets/js/datatables.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/js/jquery.tablesorter.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/js/jquery.tablesorter.widgets.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/jquery.vmap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.world.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.algeria.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.france.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.germany.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.russia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.usa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/holderjs/holder.js"></script>
-<script
-	src="<%=request.getContextPath()%>/scripts/bootstrap-jasny/js/fileinput.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jqueryui/ui/jquery-ui.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/pace/pace.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery-pjax/jquery.pjax.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/masonry/masonry.pkgd.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/screenfull/dist/screenfull.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/countUp.js/countUp.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/skycons/skycons.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.lazyload/jquery.lazyload.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/WOW/dist/wow.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.validation/jquery.validate.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.validation/additional-methods.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/autogrow-textarea/jquery.autogrowtextarea.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/typeahead.js/dist/typeahead.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.tagsinput/jquery.tagsinput.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/multiselect/js/jquery.multi-select.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/select2/select2.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery-selectboxit/src/javascripts/jquery.selectBoxIt.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/momentjs/moment.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/dropzone/downloads/dropzone.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/fullcalendar/fullcalendar.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/markdown.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/to-markdown.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/raphael/raphael-min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/morris.js/morris.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.resize.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.categories.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/flot/jquery.flot.time.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/flot-axislabels/jquery.flot.axislabels.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/datatables-tools/js/dataTables.tableTools.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/datatables-bootstrap3/BS3/assets/js/datatables.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/js/jquery.tablesorter.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/js/jquery.tablesorter.widgets.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+<script src="<%=request.getContextPath()%>/bower_components/holderjs/holder.js"></script>
+
+<script src="<%=request.getContextPath()%>/scripts/bootstrap-jasny/js/fileinput.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/js-prototype.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/slip.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/hogan-2.0.0.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/theme-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/chat-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/panel-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/google-code-prettify/run_prettify.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/bootstrap-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/jqueryui-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/dependencies-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/demo-setup.js"></script>
+
+<script class="re-execute" src="<%=request.getContextPath()%>/scripts/bootstrap-setup.js"></script>
+<script class="re-execute" src="<%=request.getContextPath()%>/scripts/jqueryui-setup.js"></script>
+<script class="re-execute" src="<%=request.getContextPath()%>/scripts/dependencies-setup.js"></script>
+<script class="re-execute" src="<%=request.getContextPath()%>/scripts/demo-setup.js"></script>
+
 <link media="screen" rel="apple-touch-icon-precomposed" sizes="144x144"
 	href="<%=request.getContextPath()%>/ico/favico-144-precomposed.png">
 <link media="screen" rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -227,10 +146,7 @@
 	href="<%=request.getContextPath()%>/css/login1.css">
 
 <script src="<%=request.getContextPath()%>/js/basics/basic.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/jquery.ui.core.js"></script>
-
-
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.ui.core.js"></script>
 
 <script type="text/javascript">
         var contextPathHead="<%=request.getContextPath()%>"
@@ -239,18 +155,15 @@
        	 }
         
         function changePassword(){
-        	
-        	window.location.href=contextPathHead+ "/changepassword.do";	 	
+        	window.location.href=contextPathHead+ "/changepassword.do";
         }
+
 		function userRegistration(){
-        	
-        	window.location.href=contextPathHead+ "/userregistration.do";	 	
+        	window.location.href=contextPathHead+ "/userregistration.do";
         }
-        
         
 		function editProfile(){
-        	
-        	window.location.href=contextPathHead+ "/editprofile.do";	 	
+        	window.location.href=contextPathHead+ "/editprofile.do";
         }
 
 		function editPatientProfile(){
@@ -260,10 +173,6 @@
 		function viewpracticeadminhome(){
 			window.location.href=contextPathHead+ "/practiceadmin/home.do";
 		}
-		
-		
-        
-      
         </script>
 </head>
 

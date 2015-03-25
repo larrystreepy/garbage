@@ -1,9 +1,13 @@
 package com.bluehub.dao.user;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.bluehub.bean.admin.SearchPhysicianForm;
+import com.bluehub.bean.common.UserDetails;
+import com.bluehub.util.CommonUtils;
+import com.bluehub.vo.admin.PatientMappingVO;
+import com.bluehub.vo.admin.PhysicianMappingVO;
+import com.bluehub.vo.common.AuditTrailVO;
+import com.bluehub.vo.common.PatientDocument;
+import com.bluehub.vo.user.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -14,20 +18,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bluehub.bean.admin.SearchPhysicianForm;
-import com.bluehub.bean.common.UserDetails;
-import com.bluehub.util.CommonUtils;
-import com.bluehub.vo.admin.PatientMappingVO;
-import com.bluehub.vo.admin.PhysicianMappingVO;
-import com.bluehub.vo.common.AuditTrailVO;
-import com.bluehub.vo.common.PatientDocument;
-import com.bluehub.vo.user.DocumentVO;
-import com.bluehub.vo.user.PatientRequestVO;
-import com.bluehub.vo.user.RoleVO;
-import com.bluehub.vo.user.UserGroupVO;
-import com.bluehub.vo.user.UserRoleVO;
-import com.bluehub.vo.user.UserVO;
-import com.bluehub.manager.user.UserManager;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 @Transactional(readOnly = true)
 public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 		UserRegistrationDao {
@@ -130,15 +123,21 @@ public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 		return registrationForm1VO;
 	}
 
+    private void assertNotEmpty(String value, String name) throws IllegalArgumentException
+    {
+        if (value == null || value.isEmpty()) throw new IllegalArgumentException(name + " must not be empty");
+    }
+
 	@SuppressWarnings("unchecked")
-	public List<SearchPhysicianForm> getPhysicianDetails(
-			String searchphysician, String orgid, String practiceid)
+	public List<SearchPhysicianForm> getPhysicianDetails(String searchphysician, String orgid, String practiceid)
 			throws DataAccessException {
+
+        assertNotEmpty(orgid, "orgid");
+        assertNotEmpty(practiceid, "practiceid");
 
 		List<SearchPhysicianForm> searchPhysician = null;
 		Query query = null;
-		Session session = getHibernateTemplate().getSessionFactory()
-				.openSession();
+		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		try {
 
 			// and (CONCAT(LOWER(ui.firstname),LOWER(ui.lastname)))
@@ -964,7 +963,6 @@ public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 	
 	
 	public Long updateSignature(Integer userid) {
-		// TODO Auto-generated method stub
 		logger.info("AdminOrganizationDaoImpl deleteAdminOrganizationFormVO() starts.");
 		String enableStatus = "yes";
 		String query = null;
@@ -991,9 +989,7 @@ public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 	
 	
 	public String checkSignature(Integer userid) {
-		// TODO Auto-generated method stub
-		logger.info("AdminOrganizationDaoImpl deleteAdminOrganizationFormVO() starts.");
-		logger.info("UserRegisterationDaoImpl checkSignature() ends.");
+		logger.info("UserRegisterationDaoImpl checkSignature() starts.");
 		UserVO registrationForm1VO = null;
 		boolean existPassword = false;
 		String signature = null;
@@ -1011,8 +1007,6 @@ public class UserRegistrationDaoImpl extends HibernateDaoSupport implements
 	}
 	
 	public Integer checkFileStatus(String filename,Integer userid) {
-		// TODO Auto-generated method stub
-		
 		logger.info("checkFileStatus checkFileStatus() starts.");
 		
 		UserVO registrationForm1VO = null;

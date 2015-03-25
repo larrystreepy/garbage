@@ -113,34 +113,6 @@
 <script
 	src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
 <script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/jquery.vmap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.world.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.algeria.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.france.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.germany.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.russia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.usa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"></script>
-<script
 	src="<%=request.getContextPath()%>/bower_components/holderjs/holder.js"></script>
 <script
 	src="<%=request.getContextPath()%>/scripts/bootstrap-jasny/js/fileinput.js"></script>
@@ -150,8 +122,7 @@
 <script src="<%=request.getContextPath()%>/scripts/theme-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/chat-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/panel-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/google-code-prettify/run_prettify.js"></script>
+
 <script class="re-execute"
 	src="<%=request.getContextPath()%>/scripts/bootstrap-setup.js"></script>
 <script class="re-execute"

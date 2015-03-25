@@ -132,8 +132,7 @@
 					<form role="form" class="form-horizontal form-bordered">
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="typeahead-local">Patient
-								Name :</label>
+							<label class="col-sm-3 control-label" for="typeahead-local">Patient Name :</label>
 							<div class="col-sm-5">
 								<label style="text-align: left; margin-left: 1%; width: 50%;"
 									class="col-sm-3 control-label" id="sharePatientName"
@@ -143,8 +142,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="typeahead-local">DOB
-								:</label>
+							<label class="col-sm-3 control-label" for="typeahead-local">DOB :</label>
 							<div class="col-sm-5">
 								<label style="text-align: left; margin-left: 1%;"
 									class="col-sm-3 control-label" id="sharePatientDob"
@@ -268,15 +266,14 @@
 								onclick="showPhysicianSearch()">
 						</div>
 
-						<div id="errPhysicianEmail" class="requrired"
-							style="display: none; color: red; margin: 0% 0% 1% 30%;" onclick="fnClearMsgField()">Please
-							Enter Email Address or select one Physician from list.</div>
+						<div id="errPhysicianEmail" class="required"
+							style="display: none; color: red; margin: 0% 0% 1% 30%;" onclick="fnClearMsgField()">
+							Please select one Physician from the list.</div>
 
 						<div id="sharephysicianSearchDiv" style="display: none;">
-
+                            <!--
 							<div class="form-group">
-								<label class="col-sm-3 control-label" for="typeahead-local">Enter
-									Email Address </label>
+								<label class="col-sm-3 control-label" for="typeahead-local">Enter Email Address </label>
 								<div class="col-sm-5">
 									<div class="input-group input-group-in">
 										<span class="input-group-addon text-silver"><i
@@ -284,13 +281,11 @@
 											id="physicianEmailId" name="physicianEmailId"
 											class="form-control" placeholder="Physician Email Id" />
 									</div>
-									<!-- /input-group-in -->
 								</div>
-								<!--/cols-->
 							</div>
-							<!--/form-group-->
 
 							<div style="margin: 0.5% 0 1% 35%" id="ORSPANID">OR</div>
+                            -->
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="typeahead-local">Organization</label>

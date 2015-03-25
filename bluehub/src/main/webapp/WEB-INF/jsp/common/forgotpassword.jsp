@@ -114,34 +114,6 @@
 <script
 	src="<%=request.getContextPath()%>/bower_components/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
 <script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/jquery.vmap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.world.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.algeria.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.france.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.germany.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.russia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/jquery.vmap.usa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bower_components/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"></script>
-<script
 	src="<%=request.getContextPath()%>/bower_components/holderjs/holder.js"></script>
 <script
 	src="<%=request.getContextPath()%>/scripts/bootstrap-jasny/js/fileinput.js"></script>
@@ -151,8 +123,7 @@
 <script src="<%=request.getContextPath()%>/scripts/theme-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/chat-setup.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/panel-setup.js"></script>
-<script class="re-execute"
-	src="<%=request.getContextPath()%>/scripts/google-code-prettify/run_prettify.js"></script>
+
 <script class="re-execute"
 	src="<%=request.getContextPath()%>/scripts/bootstrap-setup.js"></script>
 <script class="re-execute"
@@ -211,13 +182,11 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/common/forgotPassword.js"></script>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/login1.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/common/forgotPassword.js"></script>
 
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/jquery.ui.core.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/login1.css">
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.ui.core.js"></script>
 
 <style>
 .required {
@@ -233,18 +202,7 @@
 				<img width="410px" height="60px" src="<%=request.getContextPath()%>/images/mybluehub.png" style="margin-left: -77px;"> </a>
 		</div>
 
-
-		<div class="header-profile">
-			<div class="profile-nav">
-				<span class="profile-username"><a href="userregistration.do">Create
-						New Account</a></span>
-
-			</div>
-
-		</div>
-
 		<ul class="hidden-xs header-menu pull-right">
-
 		</ul>
 	</header>
 
@@ -254,30 +212,25 @@
 		<aside class="side-left"></aside>
 
 		<div class="content">
-
-
 			<script>
 var contextPath = "<%=request.getContextPath()%>";
 
 function cancelForgotPwd(){
-	 var contextPathHead="<%=request.getContextPath()%>"
-	window.location.href=contextPathHead+ "/j_spring_security_logout";	 		
-	
+    var contextPathHead="<%=request.getContextPath()%>"
+    window.location.href=contextPathHead+ "/j_spring_security_logout";
 }
 
 var displayMsgId = "";
 function fnClearMsgField() {
-	document.getElementById(displayMsgId).style.display = "none";
+    document.getElementById(displayMsgId).style.display = "none";
 }
 function fnSetTimeout(id, time) {
-	if(time == undefined)
-		time = 3000;
-	displayMsgId = id;
-	document.getElementById(displayMsgId).style.display = "block";
-	setTimeout('fnClearMsgField()', time);
+    if(time == undefined)
+        time = 3000;
+    displayMsgId = id;
+    document.getElementById(displayMsgId).style.display = "block";
+    setTimeout('fnClearMsgField()', time);
 }
-
-
 </script>
 
 			<div class="content-body">
@@ -326,8 +279,6 @@ function fnSetTimeout(id, time) {
 								</div>
 							</div>
 
-
-
 							<div class="form-group" id="questiondiv" style="display: none">
 								<label class="col-sm-3 control-label" for="typeahead-local">Password
 									Recovery Question</label>
@@ -342,8 +293,6 @@ function fnSetTimeout(id, time) {
 								</div>
 							</div>
 
-
-
 							<div class="form-group" id="answerdiv" style="display: none">
 								<label class="col-sm-3 control-label" for="typeahead-local">Password
 									Recovery Answer</label>
@@ -356,11 +305,9 @@ function fnSetTimeout(id, time) {
 								</div>
 							</div>
 
-
 							<div id="searchButton"
 								style="display: none; margin-left: 29%; border-bottom: 1px solid white;"
 								class="panel-body">
-
 
 								<input type="button" value="Submit" class="btn btn-inverse"
 									onclick="pageNavigation();"> <input type="button"
@@ -379,38 +326,22 @@ function fnSetTimeout(id, time) {
 					</div>
 				</div>
 
-
-
-				<script>
-			
-			callCheckUserEmail();
-			
-			fnSetTimeout("exception" ,6000);
+            <script>
+			    callCheckUserEmail();
+			    fnSetTimeout("exception" ,6000);
 			</script>
 
 			</div>
-
-
-
 		</div>
-
 	</section>
 
-<aside class="side-right">
+    <aside class="side-right">
 		<div class="module" data-toggle="niceScroll">
-
-			 
 		</div>
 	</aside>
-
 
 	<footer>
 		<p>&copy; Copyright 2014 - 2015 Blue Hub, All Rights Reserved</p>
 	</footer>
-
-
-
-
-
 </body>
 </html>

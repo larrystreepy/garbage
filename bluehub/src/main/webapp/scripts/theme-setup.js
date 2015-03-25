@@ -82,7 +82,7 @@ $(function(){
         filePath = '',
         urlToScripts = host + filePath,
         reExecuteScripts = [
-            'scripts/google-code-prettify/run_prettify.js', 
+//            'scripts/google-code-prettify/run_prettify.js',
             'scripts/bootstrap-setup.js', 
             'scripts/jqueryui-setup.js', 
             'scripts/dependencies-setup.js', 
