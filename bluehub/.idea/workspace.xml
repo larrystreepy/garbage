@@ -7,7 +7,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bluehub/util/MailSupport.java" afterPath="$PROJECT_DIR$/src/main/java/com/bluehub/util/MailSupport.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Message.properties" afterPath="$PROJECT_DIR$/src/main/resources/Message.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mail.properties" afterPath="$PROJECT_DIR$/src/main/resources/mail.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bluehub-web.iws" />
@@ -1305,7 +1304,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427318108456</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Intellij Update">
+      <created>1427997410799</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1427997410799</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1314,6 +1319,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845894" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845894" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1335,7 +1341,6 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47244096" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845894" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44431946" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1358,7 +1363,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="General code cleanup and refactoring&#10;tweak properties handling to support plaftorm-specific settings&#10;Fix various bugs related to fax handling&#10;Fix email properties for GCS&#10;Enhance PDF stamping to include user name, DOB, and address" />
     <MESSAGE value="Remove email options from share/request clinical info&#10;Remove &quot;Create New Account&quot; option from forgot password page&#10;update mail.properties&#10;Enhance fax so it allows spaces and hyphens and auto-adds a leading '1'&#10;Remove references to unused js libs (vmap and google prettify)&#10;Cleanup web.xml to avoid missing resources&#10;Tweak log4j output format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove email options from share/request clinical info&#10;Remove &quot;Create New Account&quot; option from forgot password page&#10;update mail.properties&#10;Enhance fax so it allows spaces and hyphens and auto-adds a leading '1'&#10;Remove references to unused js libs (vmap and google prettify)&#10;Cleanup web.xml to avoid missing resources&#10;Tweak log4j output format" />
+    <MESSAGE value="Intellij Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intellij Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
