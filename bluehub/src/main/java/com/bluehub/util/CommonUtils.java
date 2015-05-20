@@ -145,11 +145,6 @@ public class CommonUtils {
         return createDir(Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH), subdir);
     }
 
-	public static String getUploadFilePath() throws IOException {
-		logger.info("CommonUtils getUploadFilePath() starts.");
-        return Constants.getPlatformProperyValue(Constants.FILE_UPLOAD_PATH) + Constants.ADMIN_MAIL_ID + File.separator;
-	}
-
 	public static Integer parseIntFromString(String intAsString) {
 		logger.info("CommonUtils parseIntFromString() starts.");
 		Integer integer = null;

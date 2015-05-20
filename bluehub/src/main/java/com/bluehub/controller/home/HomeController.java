@@ -134,26 +134,6 @@ public class HomeController {
 		return viewPage;
 	}
 
-	@RequestMapping("/clinicalstaff.do")
-	public String clinicalStaffRedirect(ModelMap model) {
-		String viewPage = Constants.CLINICAL_STAFF_VIEW;
-		logger.info("HomeController clinicalStaffRedirect() starts");
-		return viewPage;
-	}
-
-	@RequestMapping("/edu.do")
-	public String eduRedirect(ModelMap model) {
-		String viewPage = Constants.EDU_VIEW;
-		logger.info("HomeController eduRedirect() starts");
-		return viewPage;
-	}
-
-	@RequestMapping("/showce.do")
-	public String showCePage(ModelMap model, HttpServletRequest request) {
-		logger.info("HomeController showCeuPage() starts");
-		return Constants.PUBLIC_CEU_HOME;
-	}
-
 	@RequestMapping("/loginnotactive.do")
 	public String loginnotactive(HttpSession session, ModelMap model) {
 		String viewPage = "redirect:/loginfail.do";

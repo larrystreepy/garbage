@@ -72,7 +72,7 @@ public class MailOption {
 		return to;
 	}
 
-	public void setTo(String[] to) {
+	public void setTo(String... to) {
 		this.to = to;
 	}
 
@@ -88,7 +88,7 @@ public class MailOption {
 		return cc;
 	}
 
-	public void setCc(String[] cc) {
+	public void setCc(String... cc) {
 		this.cc = cc;
 	}
 
@@ -96,7 +96,7 @@ public class MailOption {
 		return bcc;
 	}
 
-	public void setBcc(String[] bcc) {
+	public void setBcc(String... bcc) {
 		this.bcc = bcc;
 	}
 

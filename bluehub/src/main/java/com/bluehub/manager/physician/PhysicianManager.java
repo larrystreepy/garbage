@@ -4,10 +4,7 @@ import com.bluehub.bean.admin.SearchPatientForm;
 import com.bluehub.bean.common.UserDetails;
 import com.bluehub.dao.physician.PhysicianDao;
 import com.bluehub.dao.user.UserRegistrationDao;
-import com.bluehub.util.CommonUtils;
-import com.bluehub.util.Constants;
-import com.bluehub.util.EmailValidator;
-import com.bluehub.util.SendEmailWithAttachment;
+import com.bluehub.util.*;
 import com.bluehub.vo.admin.FaxVo;
 import com.bluehub.vo.common.EncounterVO;
 import com.bluehub.vo.common.PatientPrivateNoteVO;
@@ -73,7 +70,6 @@ public class PhysicianManager {
 	}
 
 	public int savePhysicianVisit(VisitsVO physicianDto) {
-		// TODO Auto-generated method stub
 		logger.info("PhysicianManager: savePhysicianVisit() ===> starts.");
 		return physicianDao.savePhysicianVisit(physicianDto);
 	}
@@ -138,17 +134,14 @@ public class PhysicianManager {
 	}
 
 	public List<VisitsVO> getAllList(Integer userid, String role, Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllList(userid, role, map);
 	}
 
 	public Long getAllListCount(Integer userid, String role, Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllListCount(userid, role, map);
 	}
 
 	public void deletePhysicianVisit(VisitsVO physicianDto) {
-		// TODO Auto-generated method stub
 		logger.info("deletePhysicianVisit ===> starts.");
 		physicianDao.deletePhysicianVisit(physicianDto);
 	}
@@ -159,7 +152,7 @@ public class PhysicianManager {
 
 	public List<Object[]> getPhysicianVisitById(int id, Integer userid,
 			String status,String role,Integer patientId, String searchDate) {
-		return physicianDao.getPhysicianVisitById(id, userid, status,role,patientId,searchDate);
+		return physicianDao.getPhysicianVisitById(id, userid, status, role, patientId, searchDate);
 	}
 
 	public List<Object[]> getAdminClinicalSearchByDate( String searchDate) {
@@ -178,11 +171,11 @@ public class PhysicianManager {
 	}
 	
 	public List<Object[]> getPhysicianSearchPatientVisitById(int patientid,int userid) {
-		return physicianDao.getPhysicianSearchPatientVisitById(patientid,userid);
+		return physicianDao.getPhysicianSearchPatientVisitById(patientid, userid);
 	}
 	
 	public List<Object[]> getPhysicianSearchVisitById(int id, String searchDate) {
-		return physicianDao.getPhysicianSearchVisitById(id,searchDate);
+		return physicianDao.getPhysicianSearchVisitById(id, searchDate);
 	}
 	
 	public void updatePhysicianVisit(VisitsVO physicianDto) {
@@ -242,48 +235,38 @@ public class PhysicianManager {
 	}
 
 	public List<Object[]> getAllDocuments(Integer userid, String status) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllDocuments(userid, status);
 	}
 
 	public VisitsVO findVisitDetails(Integer pkid) {
-		// TODO Auto-generated method stub
 		return physicianDao.findVisitDetails(pkid);
 	}
 
 	public Integer saveShareRequest(ShareClinicalInfo shareVo) {
-		// TODO Auto-generated method stub
 		return physicianDao.saveShareRequest(shareVo);
 	}
 
-	public List<Object[]> getPhysicianSharedDetails(Integer userId,
-			String status) {
-		// TODO Auto-generated method stub
+	public List<Object[]> getPhysicianSharedDetails(Integer userId, String status) {
 		return physicianDao.getPhysicianSharedDetails(userId, status);
 	}
 
 	public List<Object[]> getPatientVisitDetails(Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPatientVisitDetails(map);
 	}
 
 	public ShareClinicalInfo finShareDetails(Integer shareId) {
-		// TODO Auto-generated method stub
 		return physicianDao.finShareDetails(shareId);
 	}
 
 	public void updateShareDetails(ShareClinicalInfo shareVo) {
-		// TODO Auto-generated method stub
 		physicianDao.updateShareDetails(shareVo);
 	}
 
 	public Boolean checkSharExpiry(Integer shareId) {
-		// TODO Auto-generated method stub
 		return physicianDao.checkSharExpiry(shareId);
 	}
 
-	public List<Object[]> getPatientShareVisitRecords(int type, int patId,
-			String vDate) {
+	public List<Object[]> getPatientShareVisitRecords(int type, int patId, String vDate) {
 		logger.info("PhysicianManager: getPhysicianVisitRecords() ===> starts.");
 		return physicianDao.getPatientShareVisitRecords(type, patId, vDate);
 	}
@@ -298,25 +281,30 @@ public class PhysicianManager {
 	}
 
 	public void sendSharePatientDetails(String phyEmail, String subject,
-			String bodyContent, String serverUrl, Integer patId, String shareId,UserDetails userVo) {
-		// if child check whether email is valid
-		// if valid email send to child email otherwise send to parent
-		Boolean validEmail = Boolean.FALSE;
-		EmailValidator emailValidator = new EmailValidator();
-		validEmail = emailValidator.validate(phyEmail);
+			String bodyContent, String serverUrl, Integer patId, String shareId,UserDetails physUserVO) {
+
+		boolean validEmail = EmailValidator.validate(phyEmail);
 
 		if (validEmail) {
 			logger.info("valid email");
-			SendEmailWithAttachment mailAttach = new SendEmailWithAttachment();
-			// mailAttach.sendPatientShareMailWithAttachment("maheshwarmca@gmail.com",
-			// "welcome", "Hello and Welcome", filePath, filenameArr);
-			// mailAttach.sendPatientShareMailWithAttachment(phyEmail,
-			// "welcome", bodyContent, filePath, filenameArr);
-			mailAttach.sendPatientShareMail(phyEmail, subject, bodyContent,
-					serverUrl, patId, shareId,userVo);
-			// MailSupport.sendEmail(phyEmail, subject, bodyContent);
-			// MailSupport.sendForgotPasswordMail(phyEmail, filePath,
-			// bodyContent);
+
+			subject = Constants.getPropertyValue(Constants.PATIENT_SHARE_SUBJECT);
+			final String message = Constants.getPropertyValue(Constants.PATIENT_SHARE_MESSAGE);
+			final String linkText = Constants.getPropertyValue(Constants.PATIENT_SHARE_LINK_TEXT);
+
+			final String link = String.format("  <a href='%s/physician/viewShareRequest.do?shareId=%s'>%s</a>",
+					serverUrl, shareId, linkText);
+
+			bodyContent = "<html><body>"
+					+ "Dear " + physUserVO.getUsername() + ",<br><br>"
+					+ message
+					+ link
+					+ "</body></html>";
+
+			MailSupport.sendBasicEmail(phyEmail, subject, bodyContent);
+		} else
+		{
+			logger.warn("Invalid email: " + phyEmail);
 		}
 	}
 
@@ -335,191 +323,142 @@ public class PhysicianManager {
 	}
 
 	public List<Object[]> getAllDocumentsByUserId(Integer userid) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllDocumentsByUserId(userid);
-
 	}
 	
 	public List<Object[]> getShareDocumentsByUserId(Integer userid) {
-		// TODO Auto-generated method stub
 		return physicianDao.getShareDocumentsByUserId(userid);
-
 	}
 
 	public List<Object[]> getAllDocumentsBypatIdInPhysician(Integer patid) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllDocumentsBypatIdInPhysician(patid);
-
 	}
 
 	public Integer saveRequestBehalfOfPatient(RequestInfoOfPatientVO infoVO) {
-		// TODO Auto-generated method stub
 		return physicianDao.saveRequestBehalfOfPatient(infoVO);
 	}
 
 	public List<Object[]> getPhysicianrequestedSharedInfo(Integer userId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPhysicianrequestedSharedInfo(userId);
 	}
 
 	public RequestInfoOfPatientVO findReqBehalfOfPatient(Integer requestId) {
-		// TODO Auto-generated method stub
 		return physicianDao.findReqBehalfOfPatient(requestId);
 	}
 
 	public void updateReqBehalfOfPatient(RequestInfoOfPatientVO reqVo) {
-		// TODO Auto-generated method stub
 		physicianDao.updateReqBehalfOfPatient(reqVo);
 	}
 
 	public List<Object[]> getPhysicianSharedInfoDetails(Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPhysicianSharedInfoDetails(map);
 	}
 
 	public Boolean checkRequestExpiry(Integer requestId) {
-		// TODO Auto-generated method stub
 		return physicianDao.checkRequestExpiry(requestId);
 	}
 
-	public List<Object[]> getAllDocumentsRequestBehalfOfPatient(
-			Integer requestId, String status) {
-		// TODO Auto-generated method stub
-		return physicianDao.getAllDocumentsRequestBehalfOfPatient(requestId,
-				status);
+	public List<Object[]> getAllDocumentsRequestBehalfOfPatient(Integer requestId, String status) {
+		return physicianDao.getAllDocumentsRequestBehalfOfPatient(requestId, status);
 	}
 
 	public List<Object[]> getPatientDetails(Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPatientDetails(map);
 	}
 
-	public List<UserPersonalInfoVO> getPatientAdditionalInformation(
-			Integer patId) {
-		// TODO Auto-generated method stub
+	public List<UserPersonalInfoVO> getPatientAdditionalInformation(Integer patId) {
 		return physicianDao.getPatientAdditionalInformation(patId);
 	}
 
-	public List<UserPersonalInfoVO> getPhysicianAdditionalInformation(
-			Integer phyId) {
-		// TODO Auto-generated method stub
+	public List<UserPersonalInfoVO> getPhysicianAdditionalInformation(Integer phyId) {
 		return physicianDao.getPhysicianAdditionalInformation(phyId);
 	}
 
 	public void updatePersonalDetails(UserPersonalInfoVO userPersonalInfoDto) {
-		// TODO Auto-generated method stub
 		physicianDao.updatePersonalDetails(userPersonalInfoDto);
 	}
 
-	public void updatePhysicianPersonalDetails(
-			UserPersonalInfoVO physicianPersonalInfoDto) {
-		// TODO Auto-generated method stub
+	public void updatePhysicianPersonalDetails(UserPersonalInfoVO physicianPersonalInfoDto) {
 		physicianDao.updatePhysicianPersonalDetails(physicianPersonalInfoDto);
 	}
 
 	public Boolean checkAlreadyExistingPhysician(Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.checkAlreadyExistingPhysician(map);
 	}
 
-	public Long getAllVisitsountsByPhyId(Integer type, Integer phyId,
-			String visitDate, Integer patientId) {
-		// TODO Auto-generated method stub
-		return physicianDao.getAllVisitsountsByPhyId(type, phyId, visitDate,
-				patientId);
+	public Long getAllVisitsountsByPhyId(Integer type, Integer phyId, String visitDate, Integer patientId) {
+		return physicianDao.getAllVisitsountsByPhyId(type, phyId, visitDate, patientId);
 	}
 
 	public Long getPatientDetailsCount(String searchPatient, Map paramsMap) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPatientDetailsCount(searchPatient, paramsMap);
 	}
 
 	public Long getSearchPhysicianVisitRecordsCount(String physicianid, Map map) {
-		// TODO Auto-generated method stub
-		return physicianDao.getSearchPhysicianVisitRecordsCount(physicianid,
-				map);
+		return physicianDao.getSearchPhysicianVisitRecordsCount(physicianid, map);
 	}
 
-	public Long getSearchVisitRecordsCount(String searchDate, Integer userId,
-			String role, HashMap paramsMap) {
-		// TODO Auto-generated method stub
-		return physicianDao.getSearchVisitRecordsCount(searchDate, userId,
-				role, paramsMap);
+	public Long getSearchVisitRecordsCount(String searchDate, Integer userId, String role, HashMap paramsMap) {
+		return physicianDao.getSearchVisitRecordsCount(searchDate, userId, role, paramsMap);
 	}
 
-	public Long getPatientRequestCount(Integer userId, String role,
-			HashMap paramsMap) {
-		// TODO Auto-generated method stub
+	public Long getPatientRequestCount(Integer userId, String role, HashMap paramsMap) {
 		return physicianDao.getPatientRequestCount(userId, role, paramsMap);
 	}
 
 	public Long getTagVisitDetailsCount(String tag, Map paramsMap) {
-		// TODO Auto-generated method stub
 		return physicianDao.getTagVisitDetailsCount(tag, paramsMap);
 	}
 
 	public Long getSearchPatientVisitRecordsCount(String patientid, Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getSearchPatientVisitRecordsCount(patientid, map);
 	}
 
 	public Long getPhysicianVisitRecordsCount(Integer patientId, int i, Map map) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPhysicianVisitRecordsCount(patientId, i, map);
 	}
 
 	public String getOrganizationNameByPatientId(Integer patientId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getOrganizationNameByPatientId(patientId);
 	}
 
 	public void updatePatientRequestVo(Integer requestId) {
-		// TODO Auto-generated method stub
 		physicianDao.updatePatientRequestVo(requestId);
 	}
 
 	public Date getVisitDateByVisitId(Integer visitId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getVisitDateByVisitId(visitId);
 	}
 
 	public List<Object[]> getAllPatientDetailsForFax() {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllPatientDetailsForFax();
 	}
 
 	public List<Object[]> getEfaxAssocoatedPatientDocuments(Integer patientId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getEfaxAssocoatedPatientDocuments(patientId);
 	}
 
 	public void deleteDocument(Integer docId) {
-		// TODO Auto-generated method stub
 		physicianDao.deleteDocument(docId);
 	}
 
 	public Object[] getPhysicianDetails(Integer physicianid) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPhysicianDetails(physicianid);
 	}
 
 	public String getOrganizationIdForPatient(Integer orgId, Integer patientId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getOrganizationIdForPatient(orgId,patientId);
 	}
 
 	public Integer findPatientOrganizationId(Integer userId) {
-		// TODO Auto-generated method stub
 		return physicianDao.findPatientOrganizationId(userId);
 	}
 
 	public Object[] getPatientPersonalDetailsForEfax(Integer userId) {
-		// TODO Auto-generated method stub
 		return physicianDao.getPatientPersonalDetailsForEfax(userId);
 	}
 
 	public Integer saveEFaxDetails(FaxVo faxVo) {
-		// TODO Auto-generated method stub
 		return physicianDao.saveEFaxDetails(faxVo);
 	}
 
@@ -528,9 +467,6 @@ public class PhysicianManager {
 	}
 
 	public List<Object[]> getAllSharedDocuments(Integer shareId, String status) {
-		// TODO Auto-generated method stub
 		return physicianDao.getAllSharedDocuments(shareId,status);
 	}
-
-
 }

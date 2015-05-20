@@ -279,8 +279,7 @@ public class UserManager {
 		// if child check whether email is valid
 		// if valid email send to child email otherwise send to parent
 		if (roleVO.getRoleName().equals(Constants.CHILD)) {
-			EmailValidator emailValidator = new EmailValidator();
-			boolean validEmail = emailValidator.validate(userEmail);
+			boolean validEmail = EmailValidator.validate(userEmail);
 
 			if (validEmail) {
 				MailSupport.sendForgotPasswordMail(userEmail, userName, userPassword);

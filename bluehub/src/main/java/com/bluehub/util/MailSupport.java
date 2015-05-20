@@ -3,7 +3,6 @@ package com.bluehub.util;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -52,19 +51,15 @@ public class MailSupport {
             message.setText(mailOption.getBody());
             message.setFrom(new InternetAddress(Constants.getMailPropertyValue("email")));
 
-            for (int i = 0; i < mailOption.getTo().length; i++) {
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailOption.getTo()[i]));
-            }
+            message.setRecipients(Message.RecipientType.TO, bindAddress(mailOption.getTo()));
+
             if (mailOption.getCc() != null) {
-                for (int i = 0; i < mailOption.getCc().length; i++) {
-                    message.addRecipient(Message.RecipientType.CC, new InternetAddress(mailOption.getCc()[i]));
-                }
+                message.setRecipients(Message.RecipientType.CC, bindAddress(mailOption.getCc()));
             }
             if (mailOption.getBcc() != null) {
-                for (int i = 0; i < mailOption.getBcc().length; i++) {
-                    message.addRecipient(Message.RecipientType.BCC, new InternetAddress(mailOption.getBcc()[i]));
-                }
+                message.setRecipients(Message.RecipientType.BCC, bindAddress(mailOption.getBcc()));
             }
+
             message.setSubject(mailOption.getSubject());
             message.setText(mailOption.getBody());
 
@@ -187,8 +182,8 @@ public class MailSupport {
         MailOption mailOption = new MailOption();
         mailOption.setForceSystemConfiguredSender(true);
         mailOption.setAuthenticate(true);
-        mailOption.setTo(new String[]{toEmail});
-        mailOption.setCc(new String[]{ccEmail});
+        mailOption.setTo(toEmail);
+        mailOption.setCc(ccEmail);
         mailOption.setSubject(subject);
         mailOption.setBody(bodyContent);
         new MailSupport().send(mailOption);
@@ -208,75 +203,11 @@ public class MailSupport {
         MailOption mailOption = new MailOption();
         mailOption.setForceSystemConfiguredSender(true);
         mailOption.setAuthenticate(true);
-        mailOption.setTo(new String[]{toEmail});
-        mailOption.setCc(new String[]{ccEmail});
+        mailOption.setTo(toEmail);
+        mailOption.setCc(ccEmail);
         mailOption.setSubject(subject);
         mailOption.setMultipart(bodyContent);
         new MailSupport().sendMultipartMail(mailOption);
-    }
-
-    /**
-     * Sends email with new passcode
-     *
-     * @param userEmail   as string
-     * @param passcode    as string
-     * @param name        as string
-     * @param userName    as string
-     * @param agencyEmail as string
-     * @param validity    as integer
-     */
-    public static void sendMailCeuPasscode(String userEmail, String passcode,
-                                           String name, String userName, String agencyEmail, String validity) {
-
-        logger.info("sendMailCeuPasscode() start");
-
-        StringBuilder bodyContent = new StringBuilder();
-        String subject = Constants.getPropertyValue(Constants.CEU_TRAINING_SUBJECT);
-        String content = Constants.getPropertyValue(Constants.CEU_TRAINING_CONTENT);
-        String greeting = Constants.getPropertyValue(Constants.CEU_TRAINING_DEAR);
-        String mailcontent = Constants.getPropertyValue(Constants.CEU_TRAINING_MAILCONTENT);
-        String passcodetext = Constants.getPropertyValue(Constants.CEU_TRAINING_PASSCODE);
-        String valid = Constants.getPropertyValue(Constants.CEU_TRAINING_VALID);
-        String days = Constants.getPropertyValue(Constants.CEU_TRAINING_DAYS);
-        String regards = Constants.getPropertyValue(Constants.CEU_TRAINING_BEST);
-
-        bodyContent.append(greeting).append(" ").append(userName);
-        bodyContent.append("\n").append(content).append(" ").append("\"").append(name).append("\"").append(" ").append(mailcontent);
-        bodyContent.append("\n").append(passcodetext).append(" ").append(passcode).append("\n");
-        bodyContent.append("\n").append(valid).append(" ").append(validity).append(" ").append(days).append("\n");
-        bodyContent.append("\n");
-        bodyContent.append("\n").append(regards).append("\n");
-        bodyContent.append(agencyEmail).append("\n");
-
-        logger.debug("sendMailCeuPasscode() userEmail=>" + userEmail);
-        sendSubscribeEmail(userEmail, subject, bodyContent.toString(), agencyEmail);
-    }
-
-    public static void reSentMailCeuPasscode(String userEmail, String passcode, String name, String userName, String agencyEmail, String validity) {
-        logger.info("reSentMailCeuPasscode() start");
-
-        StringBuilder bodyContent = new StringBuilder();
-        String subject = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_SUBJECT);
-        String content = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_CONTENT);
-        String greeting = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_DEAR);
-        String mailcontent = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_MAILCONTENT);
-        String passcodetext = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_PASSCODE);
-        String valid = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_VALID);
-        String days = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_DAYS);
-        String regards = Constants.getPropertyValue(Constants.RE_CEU_TRAINING_BEST);
-
-        bodyContent.append(greeting).append(" ").append(userName);
-        bodyContent.append("\n");
-        bodyContent.append("\n").append(content).append(" ").append("\"").append(name).append("\"").append(" ").append(mailcontent);
-        bodyContent.append("\n").append(passcodetext).append(" ").append(passcode).append("\n");
-        bodyContent.append("\n").append(valid).append(" ").append(validity).append(" ").append(days).append("\n");
-        bodyContent.append("\n");
-        bodyContent.append("\n").append(regards).append("\n");
-        bodyContent.append(agencyEmail).append("\n");
-
-        logger.debug("reSentMailCeuPasscode() userEmail=>" + userEmail);
-
-        sendSubscribeEmail(userEmail, subject, bodyContent.toString(), agencyEmail);
     }
 
     public static void sendSubscribeEmail(String userEmail, String subject, String bodyContent, String agencyEmail) {
@@ -284,8 +215,8 @@ public class MailSupport {
         MailOption mailOption = new MailOption();
         mailOption.setForceSystemConfiguredSender(true);
         mailOption.setAuthenticate(true);
-        mailOption.setTo(new String[]{userEmail});
-        mailOption.setCc(new String[]{agencyEmail});
+        mailOption.setTo(userEmail);
+        mailOption.setCc(agencyEmail);
         mailOption.setSubject(subject);
         mailOption.setBody(bodyContent);
         new MailSupport().send(mailOption);
@@ -479,82 +410,27 @@ public class MailSupport {
 
             logger.info("sendPatientRequestMail : ");
 
-            String subject = Constants.getPropertyValue(Constants.SHARE_REQUEST_SUBJECT);
-            String dear = Constants.getPropertyValue(Constants.PATIENT_REQUEST_DEAR);
-            String best = Constants.getPropertyValue(Constants.PATIENT_REQUEST_BEST);
-            String click_linkhere = Constants.getPropertyValue(Constants.click_linkhere);
+            final String subject = Constants.getPropertyValue(Constants.SHARE_REQUEST_SUBJECT);
+            final String content1 = Constants.getPropertyValue(Constants.SHARE_REQUEST_CONTENT1);
+            final String content2 = Constants.getPropertyValue(Constants.SHARE_REQUEST_CONTENT2);
+            final String linkText = Constants.getPropertyValue(Constants.SHARE_REQUEST_LINK_TEXT);
+            final String emailIntro = Constants.getPropertyValue(Constants.SHARE_REQUEST_EMAIL_INTRO);
+            final String supportEmail = Constants.getPropertyValue(Constants.SUPPORT_EMAIL);
+            final String dear = Constants.getPropertyValue(Constants.PATIENT_REQUEST_DEAR);
+            final String best = Constants.getPropertyValue(Constants.PATIENT_REQUEST_BEST);
 
-            String mailContent = req.equals("YES")
-                    ? "Mr/mrs " + name + " Requesting Share Your Clinical Documents."
-                    : "Mr/mrs " + name + " Requesting Your Digital Signature.";
-
-            String activateLink = "<a href='" + serverUrl + "'>" + click_linkhere + "</a>";
+            final String link = String.format("  <a href='%s'>%s</a>", serverUrl, linkText);
+            final String emailLink = String.format("<a href='mailto:%s'>%s</a>", supportEmail, supportEmail);
 
             String tableContent = createEmailTable(
                     dear + " " + userName + ", ",
-                    mailContent,
-                    activateLink,
+                    content1 + link + content2,
+                    emailIntro + emailLink,
                     best
             );
 
             sendBasicEmail(userEmail, subject, tableContent);
         }
-
-        //sendEmail(userEmail, subject, bodyContent.toString());
-    }
-
-    /**
-     * sends new password generated to the parent of child who has no valid
-     * email id
-     *
-     * @param mailParams
-     */
-    public static void sendForgotPasswordMailChild(Map<String, Object> mailParams) {
-
-        StringBuilder bodyContent = new StringBuilder();
-        String subject = Constants.getPropertyValue(Constants.CHILD_FORGOT_PASSWORD_SUBJECT);
-        String dear = Constants.getPropertyValue(Constants.CHILD_FORGOT_PASSWORD_DEAR);
-        String content = Constants.getPropertyValue(Constants.CHILD_FORGOT_PASSWORD_CONTENT);
-        String mailContent = Constants.getPropertyValue(Constants.CHILD_FORGOT_PASSWORD_MAILCONTENT);
-        String best = Constants.getPropertyValue(Constants.CHILD_FORGOT_PASSWORD_BEST);
-        String adminEmail = (String) mailParams.get(Constants.ADMIN_EMAIL);
-        String parentAFirstName = (String) mailParams.get(Constants.PARENTA_FIRSTNAME);
-        String parentALastName = (String) mailParams.get(Constants.PARENTA_LASTNAME);
-        String parentAEmail = (String) mailParams.get(Constants.PARENTA_EMAIL);
-        String newPassword = (String) mailParams.get(Constants.NEW_PASSWORD);
-        //String childEmail = (String) mailParams.get(Constants.USER_EMAIL);
-        String childEmail = Constants.TEAM_MEMBER;
-
-        bodyContent.append(dear).append(" ").append(parentAFirstName).append(" ").append(parentALastName).append("\n");
-        bodyContent.append("\n");
-        bodyContent.append(content).append(" ").append(childEmail).append(" is: ").append(newPassword).append("\n");
-        bodyContent.append(mailContent).append("\n");
-        bodyContent.append("\n");
-        bodyContent.append(best).append("\n");
-        bodyContent.append(adminEmail).append("\n");
-
-        sendEmail(parentAEmail, subject, bodyContent.toString());
-    }
-
-    public static void sendMultipartEmailWithForCustodian(String custodianMailId, String agencyEmailId, String subject, Multipart bodyContent) {
-        MailOption mailOption = new MailOption();
-        mailOption.setForceSystemConfiguredSender(true);
-        mailOption.setAuthenticate(true);
-        mailOption.setTo(new String[]{custodianMailId});
-        mailOption.setCc(new String[]{agencyEmailId});
-        mailOption.setSubject(subject);
-        mailOption.setMultipart(bodyContent);
-        new MailSupport().sendMultipartMail(mailOption);
-    }
-
-    public static void sendEmailToMultipleUsers(String[] userEmail, String subject, String bodyContent) {
-        MailOption mailOption = new MailOption();
-        mailOption.setForceSystemConfiguredSender(true);
-        mailOption.setAuthenticate(true);
-        mailOption.setTo(userEmail);
-        mailOption.setSubject(subject);
-        mailOption.setBody(bodyContent);
-        new MailSupport().send(mailOption);
     }
 
     public static void sendPatientRequestBehalfMail(String userEmail, String userName, String serverUrl, String requestFrom, String requestTo) {
@@ -656,8 +532,8 @@ public class MailSupport {
      * @param subject     Email subject
      * @param htmlContent HTML content
      */
-    private static void sendBasicEmail(String userEmail, String subject, String htmlContent) {
-        Multipart mp = new MimeMultipart();
+    public static void sendBasicEmail(String userEmail, String subject, String htmlContent) {
+        final Multipart mp = new MimeMultipart();
 
         try {
             MimeBodyPart htmlPart = new MimeBodyPart();
@@ -667,7 +543,7 @@ public class MailSupport {
             logger.error(Constants.LOG_ERROR + e.getMessage(), e);
         }
 
-        String adminEmail = Constants.getMailPropertyValue("adminemail");
+        final String adminEmail = Constants.getMailPropertyValue("adminemail");
 
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Email: to '%s' subject='%s' body=%s'", userEmail, subject, htmlContent));
@@ -678,8 +554,8 @@ public class MailSupport {
         MailOption mailOption = new MailOption();
         mailOption.setForceSystemConfiguredSender(true);
         mailOption.setAuthenticate(true);
-        mailOption.setTo(new String[]{userEmail});
-        mailOption.setCc(new String[]{adminEmail});
+        mailOption.setTo(userEmail);
+        mailOption.setCc(adminEmail);
         mailOption.setSubject(subject);
         mailOption.setMultipart(mp);
 

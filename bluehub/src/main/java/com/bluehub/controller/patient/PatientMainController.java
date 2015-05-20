@@ -540,8 +540,8 @@ public class PatientMainController {
             jsonResponse.setMessage((String) faxResponse.get("message"));
         }
 
-        EmailValidator emailValidator = new EmailValidator();
-        boolean validEmail = emailValidator.validate(mail);
+        boolean validEmail = EmailValidator.validate(mail);
+
         if (validEmail) {
             String serverUrl = request.getScheme() + "://"
                     + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
@@ -599,8 +599,7 @@ public class PatientMainController {
         }
 
         if (!mailid.isEmpty() && userManager.getUserName(userId) != null) {
-            EmailValidator emailValidator = new EmailValidator();
-            boolean validEmail = emailValidator.validate(mailid);
+            boolean validEmail = EmailValidator.validate(mailid);
             boolean haveJson = !json.isEmpty();
 
             if (logger.isDebugEnabled()) logger.debug("Send mail: mailid='" + mailid + "' valid=" + validEmail);
